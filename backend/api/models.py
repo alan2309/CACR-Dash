@@ -9,3 +9,13 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+class Task(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    name = models.CharField(max_length=250)
+    goal = models.IntegerField()
+    progress = models.IntegerField()
+    createdAt = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
