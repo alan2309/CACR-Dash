@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import projectRoutes from './routes/projectRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import cors from 'cors'
+
 
 dotenv.config()
 
@@ -11,6 +13,7 @@ connectDB();
 const app = express();
 
 app.use(express.json());
+app.use(cors()) ;
 app.get('/',(req,res)=>{
     res.send('api....')
 })
