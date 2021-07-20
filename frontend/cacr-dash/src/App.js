@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import {useState} from 'react';
 import Axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Programs from './components/Programs';
 
 function App() {
 
@@ -29,7 +30,8 @@ function App() {
       <Navbar/>
       <Switch>
       <Route path='/cacr' component={() => { window.location.href = 'http://www.ngocacr.com/'; return null;}}/>
-      <Route path="/admin" render={props => <SignIn Login = {Login}/>}/>
+      <Route path='/admin' render={props => <SignIn Login = {Login}/>}/>
+      <Route path='/programs' render={props => <Programs />}/>
       </Switch>
     </div>
     </Router>
