@@ -1,8 +1,9 @@
-import './App.css';
+import './CSS/App.css';
 import SignIn from './components/SignIn';
 import Navbar from './components/Navbar';
 import {useState} from 'react';
 import Axios from 'axios';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
 
@@ -23,10 +24,15 @@ function App() {
   }
 
   return (
+    <Router>
     <div className="App">
       <Navbar/>
-      <SignIn Login={Login} error={error}/>
+      <Switch>
+      <Route path='/cacr' component={() => { window.location.href = 'http://www.ngocacr.com/'; return null;}}/>
+      <Route path="/admin" render={props => <SignIn Login = {Login}/>}/>
+      </Switch>
     </div>
+    </Router>
   );
 }
 
