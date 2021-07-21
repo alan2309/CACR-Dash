@@ -29,6 +29,7 @@ function App() {
     <div className="App">
       <Navbar/>
       <Switch>
+      <Route path='/' exact render={props => <Programs />}/>
       <Route path='/cacr' component={() => { window.location.href = 'http://www.ngocacr.com/'; return null;}}/>
       <Route path='/admin' render={props => <SignIn Login = {Login}/>}/>
       <Route path='/programs' render={props => <Programs />}/>

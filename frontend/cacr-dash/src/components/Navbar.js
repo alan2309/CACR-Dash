@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 
 function Navbar() {
     return (
-    <nav className="navbar navbar-expand-md navbar-dark mb-4">
+    <nav className="navbar navbar-expand-md mb-4">
   <div className="container-fluid">
     <a className="navbar-brand" >
     <img src={logo} alt="logo" className="d-inline-block align-middle mr-2"/>

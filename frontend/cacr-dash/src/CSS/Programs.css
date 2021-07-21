@@ -1,0 +1,32 @@
+.car{
+    align-items: center;
+}
+.carousel .carousel-item {
+    height: 500px;
+    margin-bottom:1%;
+  }
+  
+  .carousel-item img {
+      position: absolute;
+      object-fit:cover;
+      top: 0;
+      left: 0;
+      min-height: 500px;
+  }
+    .card{
+      width:100%;
+      border-radius: 19px;
+      background: #ffffff;
+      box-shadow:  8px 8px 7px #e8e8e8,
+             -8px -8px 7px #ffffff;
+  }
+    
+  .pro{
+      margin:0 auto;
+      padding:1%;
+  }
+  h4{
+      font-size: 2rem;
+      font-weight: 800;
+      color: #4c78ac;
+  }
