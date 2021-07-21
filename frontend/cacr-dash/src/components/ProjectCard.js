@@ -10,7 +10,11 @@ const firstProgram ={
 
 function ProjectCard() {
     return (
-        <Program img={firstProgram.img} title={firstProgram.title} description={firstProgram.description}/>
+    <div class=" pro container-fluid">
+        <div className="row row-cols-1 row-cols-md-3 g-4">
+            <Program img={firstProgram.img} title={firstProgram.title} description={firstProgram.description}/>
+        </div>
+    </div>
     )
 }
 const Program = (props) => {
