@@ -1,22 +1,10 @@
 import React from "react";
-import img1 from "../img/img1.jpeg";
 import "../CSS/Programs.css";
-
-const firstProgram = {
-  img: img1,
-  title: "Wash Initiative",
-  description:
-    "Awareness sessions and distribution of personal hygiene kits to children."
-};
 
 function ProjectCard(props) {
   const { img, title, description } = props;
   return (
-    <div class=" pro container-fluid">
-      <div className="row row-cols-1 row-cols-md-3 g-4">
         <Program img={img} title={title} description={description} />
-      </div>
-    </div>
   );
 }
 const Program = (props) => {
