@@ -4,6 +4,7 @@ import img1 from '../img/img1.jpeg'
 import img2 from '../img/img2.png'
 import img3 from '../img/img3.png'
 import '../CSS/Programs.css'
+import ProjectCard from './ProjectCard'
 
 function Programs() {
     return (
@@ -34,62 +35,10 @@ function Programs() {
 </Carousel>
 <h4 align="center">Our Programs</h4>
 <div class=" pro container-fluid">
-            <div className="row row-cols-1 row-cols-md-3 g-4">
-                <div className="col">
-                    <div className="card h-100 ">
-                        <img src={img3} class="card-img-top" alt="..."/>
-                            <div className="card-body">
-                                <h4 className="card-title">Card title</h4>
-                                <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-  <div className="col">
-    <div className="card h-100 ">
-      <img src={img1} class="card-img-top" alt="..."/>
-      <div className="card-body">
-        <h4 className="card-title">Card title</h4>
-        <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
+    <div className="row row-cols-1 row-cols-md-3 g-4">
+    <ProjectCard/>
     </div>
-  </div>
-  <div className="col">
-    <div className="card h-100 ">
-      <img src={img2} class="card-img-top" alt="..."/>
-      <div className="card-body">
-        <h4 className="card-title">Card title</h4>
-        <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.This is a longer card with supporting text below as a natural lead-in to additional content.This is a longer card with supporting text below as a natural lead-in to additional content.This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-      </div>
-    </div>
-  </div>
-  <div className="col">
-    <div className="card h-100 ">
-      <img src={img3} class="card-img-top" alt="..."/>
-      <div className="card-body">
-        <h4 className="card-title">Card title</h4>
-        <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-      </div>
-    </div>
-  </div>
-  <div className="col">
-    <div className="card h-100 ">
-      <img src={img1} class="card-img-top" alt="..."/>
-      <div className="card-body">
-        <h4 className="card-title">Card title</h4>
-        <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-      </div>
-    </div>
-  </div>
-  <div className="col">
-    <div className="card h-100 ">
-      <img src={img2} class="card-img-top" alt="..."/>
-      <div className="card-body">
-        <h4 className="card-title">Card title</h4>
-        <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
-</div></div>
+</div>
         </div>
     )
 }
