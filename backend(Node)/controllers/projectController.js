@@ -39,10 +39,11 @@ const deleteProject = asyncHandler(async (req, res) => {
 // @route   POST /api/projects
 // @access  Private/Admin
 const createProject = asyncHandler(async (req, res) => {
+  const { title, image, desc } = req.body
   const project = new Project({
-    title: 'Sample name',
-    image: '/images/sample.jpg',
-    description: 'Sample description',
+    title: title,
+    image: image,
+    description: desc,
   })
 
   const createdProject = await project.save()
