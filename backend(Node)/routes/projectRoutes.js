@@ -13,8 +13,12 @@ import {
 const router = express.Router();
 
 router.get('/',getProjects)
-router.get('/:id',getProjectById)
 router.post('/create',createProject)
 router.post('/:id/task',createTask)
+router
+  .route('/:id')
+  .get(getProjectById)
+  .delete(protect, admin, deleteProject)
+  .put(protect, admin, updateProject)
 
 export default router;
