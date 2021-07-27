@@ -7,13 +7,18 @@ const taskSchema = mongoose.Schema({
     },
     completed:{
         type:Number,
-        required:true
+        required:true,
+        default:0
     },
     target:{
         type:Number,
-        required:true
+        required:true,
+        default:0
     }
-})
+ },
+ {
+    timestamps: true,
+ })
 const projectSchema = mongoose.Schema({
     title:{
         type:String,

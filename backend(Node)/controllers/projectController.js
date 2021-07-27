@@ -50,6 +50,27 @@ const createProject = asyncHandler(async (req, res) => {
   res.status(201).json(createdProject)
 })
 
+// @desc    Create new task
+// @route   POST /api/projects/:id/task
+// @access  Private
+const createTask = asyncHandler(async (req, res) => {
+  const { name,completed,target } = req.body
+  const project = await Project.findById(req.params.id)
+  if(project){
+    const task = {
+      name,
+      completed: Number(completed),
+      target:Number(target)
+    }
+    project.tasks.push(task)
+    await project.save()
+    res.status(201).json({ message: 'Task added' })
+  }
+  else{
+    res.status(404)
+    throw new Error('Project not found')
+  }
+})
 const updateProject = asyncHandler(async (req, res) => {})
 export {
   getProjects,
@@ -57,4 +78,5 @@ export {
   deleteProject,
   createProject,
   updateProject,
+  createTask
 }
