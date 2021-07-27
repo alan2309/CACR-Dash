@@ -9,6 +9,9 @@ const getProjects = asyncHandler(async (req, res) => {
   res.json(projects)
 })
 
+// @desc    get a product
+// @route   GET /api/products/:id
+// @access  Public
 const getProjectById = asyncHandler(async (req, res) => {
   const project = await Project.findById(req.params.id)
 
@@ -71,7 +74,20 @@ const createTask = asyncHandler(async (req, res) => {
     throw new Error('Project not found')
   }
 })
-const updateProject = asyncHandler(async (req, res) => {})
+// @desc    Update a product
+// @route   PUT /api/products/:id
+// @access  Private/Admin
+const updateProject = asyncHandler(async (req, res) => {
+  const project = await Project.findById(req.params.id)
+
+  if (project) {
+    res.json(updatedProduct)
+  } else {
+    res.status(404)
+    throw new Error('Product not found')
+  }
+})
+
 export {
   getProjects,
   getProjectById,
