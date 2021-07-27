@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const taskSchema = mongoose.Schema({
+    project: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Project',
+      },
     name:{
         type:String,
         required:true
@@ -32,11 +37,11 @@ const projectSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    tasks:[taskSchema]
 },{
     timestamps:true
 })
 
 const Project = mongoose.model('Project',projectSchema)
+const Task = mongoose.model('Task',taskSchema)
 
-export default Project;
+export {Project,Task}

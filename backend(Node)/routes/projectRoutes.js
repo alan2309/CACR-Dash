@@ -1,6 +1,6 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler'
-import Project from '../models/projectModel.js'
+import {Project }from '../models/projectModel.js'
 import {
     getProjects,
     getProjectById,
@@ -8,13 +8,20 @@ import {
     createProject,
     updateProject,
     createTask,
+    getTasks,
+    updateTask,
+    deleteTask
   }from '../controllers/projectController.js'
   import {protect,admin} from '../middleware/authMiddleware.js'
 const router = express.Router();
 
 router.get('/',getProjects)
 router.post('/create',createProject)
-router.post('/:id/task',createTask)
+router.route('/:id/task')
+  .post(createTask)
+  .get(getTasks)
+  .put(updateTask)
+  .delete(deleteTask)
 router
   .route('/:id')
   .get(getProjectById)

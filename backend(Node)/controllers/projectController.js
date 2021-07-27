@@ -1,37 +1,22 @@
 import asyncHandler from 'express-async-handler'
-import Project from '../models/projectModel.js'
+import {Project,Task} from '../models/projectModel.js'
 
 // @desc    Fetch all projects
 // @route   GET /api/projects
 // @access  Public
 const getProjects = asyncHandler(async (req, res) => {
   const projects = await Project.find({})
-  res.json(projects)
+  res.status(200).json(projects)
 })
 
-// @desc    get a product
-// @route   GET /api/products/:id
+// @desc    get a project
+// @route   GET /api/projects/:id
 // @access  Public
 const getProjectById = asyncHandler(async (req, res) => {
   const project = await Project.findById(req.params.id)
 
   if (project) {
-    res.json(project)
-  } else {
-    res.status(404)
-    throw new Error('Project not found')
-  }
-})
-
-// @desc    Delete a project
-// @route   DELETE /api/projects/:id
-// @access  Private/Admin
-const deleteProject = asyncHandler(async (req, res) => {
-  const project = await Project.findById(req.params.id)
-
-  if (project) {
-    await project.remove()
-    res.json({ message: 'Project removed' })
+    res.status(200).json(project)
   } else {
     res.status(404)
     throw new Error('Project not found')
@@ -53,6 +38,43 @@ const createProject = asyncHandler(async (req, res) => {
   res.status(201).json(createdProject)
 })
 
+// @desc    Delete a project
+// @route   DELETE /api/projects/:id
+// @access  Private/Admin
+const deleteProject = asyncHandler(async (req, res) => {
+  const project = await Project.findById(req.params.id)
+
+  if (project) {
+    await project.remove()
+    res.json({ message: 'Project removed' })
+  } else {
+    res.status(404)
+    throw new Error('Project not found')
+  }
+})
+
+// @desc    Update a project
+// @route   PUT /api/projects/:id
+// @access  Private/Admin
+const updateProject = asyncHandler(async (req, res) => {
+  const project = await Project.findById(req.params.id)
+
+  // if (project) {
+  //   res.json(updatedProject)
+  // } else {
+  //   res.status(404)
+  //   throw new Error('Project not found')
+  // }
+})
+
+// @desc    Get tasks
+// @route   GET /api/projects/:id/task
+// @access  Private
+const getTasks=asyncHandler(async (req,res)=>{
+  const tasks = await Task.find({"project":req.params.id})
+  res.status(200).json(tasks)
+})
+
 // @desc    Create new task
 // @route   POST /api/projects/:id/task
 // @access  Private
@@ -60,31 +82,38 @@ const createTask = asyncHandler(async (req, res) => {
   const { name,completed,target } = req.body
   const project = await Project.findById(req.params.id)
   if(project){
-    const task = {
+    const task =new Task({
+      project:req.params.id,
       name,
       completed: Number(completed),
       target:Number(target)
-    }
-    project.tasks.push(task)
-    await project.save()
-    res.status(201).json({ message: 'Task added' })
+    })
+    const taskCreated = await task.save() 
+    res.status(201).json(taskCreated)
   }
   else{
     res.status(404)
     throw new Error('Project not found')
   }
 })
-// @desc    Update a product
-// @route   PUT /api/products/:id
+// @desc    Update a Task
+// @route   PUT /api/projects/:id/task
 // @access  Private/Admin
-const updateProject = asyncHandler(async (req, res) => {
-  const project = await Project.findById(req.params.id)
+const updateTask = asyncHandler(async (req, res) => {
+})
 
-  if (project) {
-    res.json(updatedProduct)
+// @desc    Delete a Task
+// @route   DELETE /api/projects/:id/task
+// @access  Private/Admin
+const deleteTask = asyncHandler(async (req, res) => {
+  const task = await Task.findById(req.params.id)
+
+  if (task) {
+    await task.remove()
+    res.json({ message: 'Task removed' })
   } else {
     res.status(404)
-    throw new Error('Product not found')
+    throw new Error('Task not found')
   }
 })
 
@@ -94,5 +123,8 @@ export {
   deleteProject,
   createProject,
   updateProject,
-  createTask
+  createTask,
+  getTasks,
+  updateTask,
+  deleteTask
 }
