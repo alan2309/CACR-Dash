@@ -42,21 +42,22 @@ function Programs() {
         </Carousel.Item>
       </Carousel>
       <h4 align="center">Our Programs</h4>
-<div class=" pro container-fluid">
-  <div className="row row-cols-1 row-cols-md-3 g-4">
-      {projects.map((proj) => {
-        return (
-          <ProjectCard
-            img={proj.image}
-            title={proj.title}
-            description={proj.description}
-          />
-        );
-      })}
-  </div>
-</div>
-</div>
-);
+      <div class=" pro container-fluid">
+        <div className="row row-cols-1 row-cols-md-3 g-4">
+          {projects.map((proj) => {
+            return (
+              <ProjectCard
+                id={proj.id}
+                img={proj.image}
+                title={proj.title}
+                description={proj.description}
+              />
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Programs;
