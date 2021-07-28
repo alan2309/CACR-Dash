@@ -34,7 +34,7 @@ function App() {
       <Route path='/cacr' component={() => { window.location.href = 'http://www.ngocacr.com/'; return null;}}/>
       <Route path='/admin' render={props => <SignIn Login = {Login}/>}/>
       <Route path='/programs' exact render={props => <Programs />}/>
-      <Route path='/programs/status' render={props => <Statuses/>}/>
+      <Route path="/programs/status/:id" render={(props) => <Statuses />} />
       </Switch>
     </div>
     </Router>
