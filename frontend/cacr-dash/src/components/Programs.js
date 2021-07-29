@@ -47,7 +47,7 @@ function Programs() {
           {projects.map((proj) => {
             return (
               <ProjectCard
-                id={proj.id}
+                id={proj._id}
                 img={proj.image}
                 title={proj.title}
                 description={proj.description}
