@@ -3,7 +3,7 @@ import "../CSS/Programs.css";
 import { Link } from "react-router-dom";
 
 function ProjectCard(props) {
-  const { img, title, description } = props;
+  const { img, title, description ,id} = props;
   return <Program img={img} title={title} description={description} id={id} />;
 }
 const Program = (props) => {
