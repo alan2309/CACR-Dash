@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function ProjectCard(props) {
   const { img, title, description } = props;
-  return <Program img={img} title={title} description={description} />;
+  return <Program img={img} title={title} description={description} id={id} />;
 }
 const Program = (props) => {
   const { img, title, description, id } = props;
