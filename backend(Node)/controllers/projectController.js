@@ -5,7 +5,13 @@ import {Project,Task} from '../models/projectModel.js'
 // @route   GET /api/projects
 // @access  Public
 const getProjects = asyncHandler(async (req, res) => {
-  const projects = await Project.find({})
+  const keyword = req.query.keyword ?{
+    title:{
+    $regex:req.query.keyword,
+    $options:'i'
+  }
+}:{}
+  const projects = await Project.find({...keyword})
   res.status(200).json(projects)
 })
 
@@ -58,13 +64,13 @@ const deleteProject = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const updateProject = asyncHandler(async (req, res) => {
   const project = await Project.findById(req.params.id)
-
-  // if (project) {
-  //   res.json(updatedProject)
-  // } else {
-  //   res.status(404)
-  //   throw new Error('Project not found')
-  // }
+  if (project) {
+    
+    res.json(updatedProject)
+  } else {
+    res.status(404)
+    throw new Error('Project not found')
+  }
 })
 
 // @desc    Get tasks
