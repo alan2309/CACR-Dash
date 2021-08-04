@@ -37,6 +37,9 @@ const projectSchema = mongoose.Schema({
         type:String,
         required:true
     },
+    labels:[String],
+    before:[Number],
+    after:[Number]
 },{
     timestamps:true
 })

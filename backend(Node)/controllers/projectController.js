@@ -33,11 +33,11 @@ const getProjectById = asyncHandler(async (req, res) => {
 // @route   POST /api/projects
 // @access  Private/Admin
 const createProject = asyncHandler(async (req, res) => {
-  const { title, image, desc } = req.body
+  const { title, image, description } = req.body
   const project = new Project({
     title: title,
     image: image,
-    description: desc,
+    description: description,
   })
 
   const createdProject = await project.save()
@@ -123,6 +123,22 @@ const deleteTask = asyncHandler(async (req, res) => {
   }
 })
 
+const createGraph = asyncHandler(async (req,res)=>{
+  const project = await Project.findById(req.params.id)
+  const {label,before,after} = req.body
+  if(project){
+    project.labels.push(label)
+    project.before.push(before)
+    project.after.push(after)
+    const created = await project.save()
+    res.json(created)
+  }
+  else{
+    res.status(404)
+    throw new Error('Project not found')
+  }
+})
+
 export {
   getProjects,
   getProjectById,
@@ -132,5 +148,6 @@ export {
   createTask,
   getTasks,
   updateTask,
-  deleteTask
+  deleteTask,
+  createGraph
 }

@@ -10,7 +10,8 @@ import {
     createTask,
     getTasks,
     updateTask,
-    deleteTask
+    deleteTask,
+    createGraph
   }from '../controllers/projectController.js'
   import {protect,admin} from '../middleware/authMiddleware.js'
 const router = express.Router();
@@ -27,5 +28,7 @@ router
   .get(getProjectById)
   .delete(protect, admin, deleteProject)
   .put(protect, admin, updateProject)
+ 
+router.route('/:id/graph').post(createGraph)  
 
 export default router;
