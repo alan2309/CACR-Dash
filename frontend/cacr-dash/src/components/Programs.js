@@ -13,33 +13,21 @@ function Programs() {
   useEffect(() => {
     axios.get("http://localhost:5000/api/projects").then((res) => {
       setProjects(res.data);
-    });
+    }).catch(err=>console.log(err));
   }, []);
   return (
     <div className="car container-flex">
       <Carousel controls={false} fade>
-        <Carousel.Item interval={3000}>
+        {projects.map(proj=>{
+          return  <Carousel.Item interval={3000}>
           <img
             className="d-inline-block w-100 h-25"
-            src={img1}
-            alt="First slide"
+            src={proj.image}
+            alt={proj.title}
             height="20px"
           />
-        </Carousel.Item>
-        <Carousel.Item interval={3000}>
-          <img
-            className="d-inline-block w-100 h-25"
-            src={img2}
-            alt="Second slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item interval={4000}>
-          <img
-            className="d-inline-block w-100 h-25"
-            src={img3}
-            alt="Third slide"
-          />
-        </Carousel.Item>
+        </Carousel.Item> 
+        })}
       </Carousel>
       <h4 align="center">Our Programs</h4>
       <div class=" pro container-fluid">
