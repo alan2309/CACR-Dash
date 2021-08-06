@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import {Project,Task} from '../models/projectModel.js'
+import Graph from '../models/graphModel.js'
 
 // @desc    Fetch all projects
 // @route   GET /api/projects
@@ -123,15 +124,24 @@ const deleteTask = asyncHandler(async (req, res) => {
   }
 })
 
+const getLabels=asyncHandler(async (req,res)=>{
+  const labels = await Graph.find({"project":req.params.id})
+  res.status(200).json(labels)
+})
+
 const createGraph = asyncHandler(async (req,res)=>{
   const project = await Project.findById(req.params.id)
   const {label,before,after} = req.body
   if(project){
-    project.labels.push(label)
-    project.before.push(before)
-    project.after.push(after)
-    const created = await project.save()
-    res.json(created)
+    const graph =new Graph({
+      project:req.params.id,
+      label,
+      before: Number(before),
+      after:Number(after)
+    })
+    const labelCreated = await graph.save() 
+    res.status(201).json(labelCreated)
+    res.json(labelCreated)
   }
   else{
     res.status(404)
@@ -149,5 +159,6 @@ export {
   getTasks,
   updateTask,
   deleteTask,
-  createGraph
+  createGraph,
+  getLabels
 }

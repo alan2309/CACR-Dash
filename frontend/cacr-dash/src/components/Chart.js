@@ -6,16 +6,19 @@ import { useParams } from "react-router-dom";
 function Chart() {
   const [chartData, setChartData] = useState({});
   var id = useParams().id;
-  const chartx = () => {
+  const chartx = async () => {
     let labels = [];
     let before = [];
     let after = [];
-    axios
-      .get(`http://localhost:5000/api/projects/${id}`)
+    await axios
+      .get(`http://localhost:5000/api/projects/${id}/graph`)
       .then((res) => {
-        labels = res.data.labels;
-        before = res.data.before;
-        after = res.data.after;
+        let data = res.data;
+        for (let x in data) {
+          labels.push(data[x].label);
+          before.push(data[x].before);
+          after.push(data[x].after);
+        }
         setChartData({
           labels: labels,
           datasets: [
