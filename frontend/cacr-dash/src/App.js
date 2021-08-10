@@ -3,7 +3,7 @@ import SignIn from "./components/SignIn";
 import Navbar from "./components/Navbar";
 import Statuses from "./components/Statuses";
 import Programs from "./components/Programs";
-import Chart from "./components/Chart";
+import Details from "./components/Details";
 import { useState } from "react";
 import Axios from "axios";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -41,7 +41,7 @@ function App() {
           <Route path="/admin" render={(props) => <SignIn Login={Login} />} />
           <Route path="/programs" exact render={(props) => <Programs />} />
           <Route path="/programs/status/:id" render={(props) => <Statuses />} />
-          <Route path="/programs/details/:id" render={(props) => <Chart />} />
+          <Route path="/programs/details/:id" render={(props) => <Details />} />
         </Switch>
       </div>
     </Router>

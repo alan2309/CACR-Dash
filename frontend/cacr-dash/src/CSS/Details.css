@@ -1,0 +1,36 @@
+.description {
+    box-shadow: 11px 14px 41px -2px rgba(0, 0, 0, 0.58) inset;
+    -webkit-box-shadow: 11px 14px 41px -2px rgba(0, 0, 0, 0.58) inset;
+    -moz-box-shadow: 11px 14px 41px -2px rgba(0, 0, 0, 0.58) inset;
+    height: 40vh;
+    width: 90%;
+    margin: auto;
+    margin-top: 30px;
+    padding: 10px;
+  }
+  .graphs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+  }
+  .bar-graph {
+    display: flex;
+    width: 40vw;
+    height: 5vh;
+    display: inline-block;
+  }
+  .pie-chart {
+    width: 40vw;
+    height: 3vh;
+  }
+  
