@@ -19,7 +19,7 @@ const Program = (props) => {
             <h4 className="card-title">{title}</h4>
             <p className="card-text">
               {description.substring(0, 100)}...
-              <Link to={`/programs/status/${id}`}>read more</Link>
+              <Link to={`/programs/details/${id}`}>read more</Link>
             </p>
           </div>
         </div>

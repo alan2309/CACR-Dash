@@ -1,12 +1,15 @@
 .description {
-    box-shadow: 11px 14px 41px -2px rgba(0, 0, 0, 0.58) inset;
-    -webkit-box-shadow: 11px 14px 41px -2px rgba(0, 0, 0, 0.58) inset;
-    -moz-box-shadow: 11px 14px 41px -2px rgba(0, 0, 0, 0.58) inset;
+  width:100%;
+  border-radius: 19px;
+  background: #ffffff;
+  box-shadow:  8px 8px 7px #e8e8e8,
+         -6px -6px 7px #ffffff;
     height: 40vh;
-    width: 90%;
-    margin: auto;
-    margin-top: 30px;
-    padding: 10px;
+    margin:  0 auto;
+    margin-top: 3%;
+    padding: 1%;
+    color:black;
+    margin-bottom: 1%;
   }
   .graphs {
     display: flex;
@@ -14,8 +17,9 @@
     flex-wrap: wrap;
     padding: 10px;
     width: 90%;
-    margin: auto;
+    margin:  0 auto;
     margin-top: 20px;
+    margin-bottom: 2%;
   }
   .col {
     display: flex;
@@ -28,9 +32,16 @@
     width: 40vw;
     height: 5vh;
     display: inline-block;
+    margin-right: 2%;
   }
   .pie-chart {
     width: 40vw;
     height: 3vh;
+  }
+  h4{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #4c78ac;
   }
   

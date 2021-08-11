@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import "../CSS/Details.css";
 import Chart from "./Chart";
 import PieChart from "./pieChart";
+import { Link } from "react-router-dom";
 
 function Details() {
   const id = useParams().id;
@@ -17,9 +18,10 @@ function Details() {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <div>
-      <h1>{proj.title}</h1>
+    <div className="container">
+      <h4>{proj.title}</h4>
       <div className="description">{proj.description}</div>
+      <Link to={`/programs/status/${id}`}><button className="btn btn-success" type="submit">View Completion Status</button></Link>
       <div className="graphs">
         <div className="col">
           <div className="bar-graph">

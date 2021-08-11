@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../CSS/ProgressBar.css";
 import Status from "./Status";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function Statuses() {
   const [tasks, setTasks] = useState([]);

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
-import img1 from "../img/img1.jpeg";
-import img2 from "../img/img2.png";
-import img3 from "../img/img3.png";
 import "../CSS/Programs.css";
 import ProjectCard from "./ProjectCard";
 import axios from "axios";
