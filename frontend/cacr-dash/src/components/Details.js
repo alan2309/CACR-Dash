@@ -23,12 +23,12 @@ function Details() {
       <div className="description">{proj.description}</div>
       <Link to={`/programs/status/${id}`}><button className="btn btn-success" type="submit">View Completion Status</button></Link>
       <div className="graphs">
-        <div className="col">
+        <div className="col1">
           <div className="bar-graph">
             <Chart />
           </div>
         </div>
-        <div className="col">
+        <div className="col1">
           <div className="pie-chart">
             <PieChart />
           </div>

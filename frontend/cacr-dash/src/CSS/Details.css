@@ -11,32 +11,12 @@
     color:black;
     margin-bottom: 1%;
   }
-  .graphs {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 10px;
-    width: 90%;
-    margin:  0 auto;
-    margin-top: 20px;
-    margin-bottom: 2%;
+  .btn{
+    margin-bottom:2%;
   }
-  .col {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 100%;
-    flex: 1;
-  }
-  .bar-graph {
-    display: flex;
-    width: 40vw;
-    height: 5vh;
-    display: inline-block;
-    margin-right: 2%;
-  }
-  .pie-chart {
-    width: 40vw;
-    height: 3vh;
+  .col1 {
+    width: 50%;
+    float:left;
   }
   h4{
     text-align: center;
