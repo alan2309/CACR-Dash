@@ -26,7 +26,7 @@ function Navbar() {
           <a className="nav-link" >CACR</a>
         </li>
         </Link>
-        <Link to='/admin' style={{ textDecoration: 'none' }}>
+        <Link to='/admin/login' style={{ textDecoration: 'none' }}>
         <li className="nav-item">
           <a className="nav-link">Admin</a>
         </li>

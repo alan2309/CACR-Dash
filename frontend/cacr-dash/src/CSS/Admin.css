@@ -1,0 +1,6 @@
+.createProgram input{
+    margin-bottom: 2%;
+}
+.createProgram input[type='file']{
+    margin-top:2%;
+}
