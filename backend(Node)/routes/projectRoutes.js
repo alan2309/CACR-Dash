@@ -16,8 +16,9 @@ import {
   import {protect,admin} from '../middleware/authMiddleware.js'
 const router = express.Router();
 
-router.get('/',getProjects)
-router.post('/create',createProject)
+router.route('/')
+.post(createProject)
+.get(getProjects)
 router.route('/:id/task')
   .post(createTask)
   .get(getTasks)
