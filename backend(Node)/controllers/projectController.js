@@ -12,7 +12,7 @@ const getProjects = asyncHandler(async (req, res) => {
     $options:'i'
   }
 }:{}
-  const projects = await Project.find({...keyword})
+  const projects = await Project.find({...keyword}).sort([['createdAt', -1]])
   res.status(200).json(projects)
 })
 
