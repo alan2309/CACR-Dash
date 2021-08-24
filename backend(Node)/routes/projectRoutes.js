@@ -27,8 +27,8 @@ router.route('/:id/task')
 router
   .route('/:id')
   .get(getProjectById)
-  .delete(protect, admin, deleteProject)
-  .put(protect, admin, updateProject)
+  .delete(deleteProject)
+  .put(updateProject)
  
 router.route('/:id/graph')
 .get(getLabels)

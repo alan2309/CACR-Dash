@@ -20,6 +20,19 @@ function Admin() {
       .catch((err) => console.log(err));
   }, []);
 
+  const deleteHandler = async (id) => {
+    await axios
+      .delete(`http://localhost:5000/api/projects/${id}`)
+      .then((res) => {
+        console.log(res);
+        const projs = projects.filter((proj) => {
+          return proj._id !== id;
+        });
+        setProjects(projs);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const fileUploadHandler = (e) => {
     setProgram({ ...program, image: e.target.files[0].name });
   };
@@ -75,7 +88,7 @@ function Admin() {
           Create Program
         </button>
       </form>
-      <AdminProjects projects={projects} />
+      <AdminProjects projects={projects} deleteHandler={deleteHandler} />
     </div>
   );
 }

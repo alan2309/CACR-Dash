@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
-const AdminProjects = ({ projects}) => {
+const AdminProjects = ({ projects, deleteHandler }) => {
   return (
     <>
       {projects.map((proj) => {
@@ -13,7 +14,12 @@ const AdminProjects = ({ projects}) => {
               <Link to={`/admin/programs/${proj._id}/edit`}>
                 <FontAwesomeIcon icon={faEdit} />
               </Link>
-              <FontAwesomeIcon icon={faTrash} value={proj._id} />
+              <button
+                className="btn btn-sm btn-danger"
+                onClick={() => deleteHandler(proj._id)}
+              >
+                <FontAwesomeIcon icon={faTrash} value={proj._id} />
+              </button>
             </p>
           </>
         );
