@@ -34,21 +34,22 @@ function Admin() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    <Redirect to='/admin/programs/graphs'/>
+    <Redirect to="/admin/programs/graphs" />;
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
     const programData = {
       title: program.title,
       description: program.description,
-      image:"/images/img1.jpeg"
+      image: "/images/img1.jpeg"
     };
     await axios
-      .post("http://localhost:5000/api/projects", programData)
+      .post("http://localhost:5000/api/projects", programData, config)
       .then((res) => {
         console.log(res);
-      });
-    await axios
-      .get("http://localhost:5000/api/projects")
-      .then((res) => {
-        setProjects(res.data);
+        setProjects([res.data, ...projects]);
       })
       .catch((err) => console.log(err));
 
@@ -74,11 +75,7 @@ function Admin() {
           }
           value={program.description}
         ></textarea>
-        <input
-          type="file"
-          className="custom-file-input"
-          id="customFile"
-        />
+        <input type="file" className="custom-file-input" id="customFile" />
         <button className="w-100 btn btn-lg btn-primary" type="submit">
           Create Program
         </button>

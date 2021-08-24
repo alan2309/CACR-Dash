@@ -161,6 +161,19 @@ const createGraph = asyncHandler(async (req,res)=>{
     throw new Error('Project not found')
   }
 })
+// @desc    Delete a Task
+// @route   DELETE /api/projects/:id/task
+// @access  Private/Admin
+const deleteLabel= asyncHandler(async (req, res) => {
+  const label = await Graph.findById(req.params.id)
+  if (label) {
+    await label.remove()
+    res.json({ message: 'label removed' })
+  } else {
+    res.status(404)
+    throw new Error('label not found')
+  }
+})
 
 export {
   getProjects,
@@ -173,5 +186,6 @@ export {
   updateTask,
   deleteTask,
   createGraph,
-  getLabels
+  getLabels,
+  deleteLabel
 }

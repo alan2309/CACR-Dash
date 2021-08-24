@@ -7,7 +7,7 @@ import Programs from "./components/Programs";
 import Details from "./components/Details";
 import Admin from "./components/Admin";
 import { useState } from "react";
-import Axios from "axios";
+import axios from "axios";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import BarGraphAdmin from "./components/BarGraphAdmin";
 import PieChartAdmin from "./components/PieChartAdmin";
@@ -18,10 +18,15 @@ function App() {
   const [error, setError] = useState("");
 
   const Login = (details) => {
-    Axios.post("http://localhost:5000/api/users/login", {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+    axios.post("http://localhost:5000/api/users/login", {
       email: details.email,
       password: details.password
-    }).then((res) => {
+    },config).then((res) => {
       console.log(res.data);
     });
   };
