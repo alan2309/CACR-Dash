@@ -15,13 +15,13 @@ const AdminProjects = ({ projects, deleteHandler }) => {
               <Link to={`/admin/programs/${proj._id}/edit`}>
               <button
                 className="btn btn-sm btn-danger updel">Update this program
-                <FontAwesomeIcon icon={faEdit} className="icon"/></button>
+                <FontAwesomeIcon icon={faEdit} /></button>
               </Link>
               <button
                 className="btn btn-sm btn-danger updel"
                 onClick={() => deleteHandler(proj._id)}
               >Delete this program
-                <FontAwesomeIcon icon={faTrash} className="icon" value={proj._id} />
+                <FontAwesomeIcon icon={faTrash} value={proj._id} />
               </button>
             </p>
           </>

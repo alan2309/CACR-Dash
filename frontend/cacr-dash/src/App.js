@@ -1,4 +1,5 @@
 import "./CSS/App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import SignIn from "./components/SignIn";
 import Navbar from "./components/Navbar";
 import Statuses from "./components/Statuses";
@@ -8,7 +9,9 @@ import Admin from "./components/Admin";
 import { useState } from "react";
 import Axios from "axios";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import GraphsAdmin from "./components/GraphsAdmin";
+import BarGraphAdmin from "./components/BarGraphAdmin";
+import PieChartAdmin from "./components/PieChartAdmin";
+import ProgressBarAdmin from "./components/ProgressBarAdmin";
 
 
 function App() {
@@ -46,7 +49,9 @@ function App() {
           <Route path="/programs/status/:id" render={(props) => <Statuses />} />
           <Route path="/programs/details/:id" render={(props) => <Details />} />
           <Route path="/admin/programs/" exact render={(props) => <Admin />} />
-          <Route path="/admin/programs/graphs" exact render={(props) => <GraphsAdmin />} />
+          <Route path="/admin/programs/graphs" exact render={(props) => <BarGraphAdmin />} />
+          <Route path="/admin/programs/PieChart" exact render={(props) => <PieChartAdmin />} />
+          <Route path="/admin/programs/Progress" exact render={(props) => <ProgressBarAdmin />} />
         </Switch>
       </div>
     </Router>
