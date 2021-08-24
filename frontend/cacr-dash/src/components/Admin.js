@@ -6,7 +6,6 @@ import AdminProjects from "./AdminProjects";
 function Admin() {
   const [program, setProgram] = useState({
     title: "",
-    image: "",
     description: ""
   });
   const [projects, setProjects] = useState([]);
@@ -33,15 +32,10 @@ function Admin() {
       .catch((err) => console.log(err));
   };
 
-  const fileUploadHandler = (e) => {
-    setProgram({ ...program, image: e.target.files[0].name });
-  };
-
   const submitHandler = async (e) => {
     e.preventDefault();
     const programData = {
       title: program.title,
-      image: program.image,
       description: program.description
     };
     await axios
@@ -56,7 +50,7 @@ function Admin() {
       })
       .catch((err) => console.log(err));
 
-    setProgram({ title: "", image: "", description: "" });
+    setProgram({ title: "", description: "" });
   };
   return (
     <div className="createProgram container">
@@ -82,12 +76,12 @@ function Admin() {
           type="file"
           className="custom-file-input"
           id="customFile"
-          onChange={fileUploadHandler}
         />
         <button className="w-100 btn btn-lg btn-primary" type="submit">
           Create Program
         </button>
       </form>
+      <h4>Existing Projects</h4>
       <AdminProjects projects={projects} deleteHandler={deleteHandler} />
     </div>
   );
