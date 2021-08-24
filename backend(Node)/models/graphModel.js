@@ -18,6 +18,10 @@ const graphSchema = mongoose.Schema({
         type:Number,
         required:true   
     }
-})
+},
+{
+    timestamps: true,
+}
+)
 const Graph = mongoose.model('Graph',graphSchema)
 export default Graph 
