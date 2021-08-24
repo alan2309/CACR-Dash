@@ -130,7 +130,7 @@ const deleteTask = asyncHandler(async (req, res) => {
 const getLabels=asyncHandler(async (req,res)=>{
   const project = await Project.findById(req.params.id)
   if(project){
-  const labels = await Graph.find({"project":req.params.id})
+  const labels = await Graph.find({"project":req.params.id}).sort([['createdAt', -1]])
   res.status(200).json(labels)
 }
 else{
