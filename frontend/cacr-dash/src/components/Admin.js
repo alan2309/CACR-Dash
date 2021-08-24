@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Redirect } from "react";
 import axios from "axios";
 import "../CSS/Admin.css";
 import AdminProjects from "./AdminProjects";
@@ -34,6 +34,7 @@ function Admin() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    <Redirect to='/admin/programs/graphs'/>
     const programData = {
       title: program.title,
       description: program.description

@@ -1,0 +1,25 @@
+.createGraphs h4{
+    text-align:justify;
+    font-weight: 400;
+}
+.createGraphs input[type="text"]{
+    width:70%;
+    display:inline-block;
+    margin-right: 1%;
+    padding:1%;
+}
+.createGraphs input[type="number"]{
+    width:10%;
+    display:inline-block;
+    margin-right: 1%;
+    padding:1%;
+}
+.createGraphs button{
+    margin-top: 1.5%;
+}
+#val{
+    width:21%;
+    display:inline-block;
+    margin-right: 1%;
+    padding:1%;
+}

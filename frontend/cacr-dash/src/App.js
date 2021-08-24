@@ -8,6 +8,7 @@ import Admin from "./components/Admin";
 import { useState } from "react";
 import Axios from "axios";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import GraphsAdmin from "./components/GraphsAdmin";
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path="/programs/status/:id" render={(props) => <Statuses />} />
           <Route path="/programs/details/:id" render={(props) => <Details />} />
           <Route path="/admin/programs/" exact render={(props) => <Admin />} />
+          <Route path="/admin/programs/graphs" exact render={(props) => <GraphsAdmin />} />
         </Switch>
       </div>
     </Router>
