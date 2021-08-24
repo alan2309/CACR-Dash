@@ -10,12 +10,15 @@ function Details() {
   const id = useParams().id;
   const [proj, setProj] = useState({});
   useEffect(() => {
-    axios
+    const getProject=async()=>{
+      await axios
       .get(`http://localhost:5000/api/projects/${id}`)
       .then((res) => {
         setProj(res.data);
       })
       .catch((err) => console.log(err));
+    }
+    getProject();
   }, []);
   return (
     <div className="container">
