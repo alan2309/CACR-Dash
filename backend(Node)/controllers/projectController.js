@@ -154,7 +154,6 @@ const createGraph = asyncHandler(async (req,res)=>{
     })
     const labelCreated = await graph.save() 
     res.status(201).json(labelCreated)
-    res.json(labelCreated)
   }
   else{
     res.status(404)
