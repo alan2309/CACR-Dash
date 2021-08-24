@@ -124,11 +124,24 @@ const deleteTask = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    GET project Labels
+// @route   GET /api/projects/:id/graph
+// @access  Private/admin
 const getLabels=asyncHandler(async (req,res)=>{
+  const project = await Project.findById(req.params.id)
+  if(project){
   const labels = await Graph.find({"project":req.params.id})
   res.status(200).json(labels)
+}
+else{
+  res.status(404)
+  throw new Error('Project not found')
+}
 })
 
+// @desc    Create project Labels
+// @route   POST /api/projects/:id/graph
+// @access  Private/admin
 const createGraph = asyncHandler(async (req,res)=>{
   const project = await Project.findById(req.params.id)
   const {label,before,after} = req.body

@@ -37,7 +37,8 @@ function Admin() {
     <Redirect to='/admin/programs/graphs'/>
     const programData = {
       title: program.title,
-      description: program.description
+      description: program.description,
+      image:"/images/img1.jpeg"
     };
     await axios
       .post("http://localhost:5000/api/projects", programData)
