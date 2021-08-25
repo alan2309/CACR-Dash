@@ -65,8 +65,16 @@ const deleteProject = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const updateProject = asyncHandler(async (req, res) => {
   const project = await Project.findById(req.params.id)
+  const {
+    title,
+    description,
+    image
+  } = req.body
   if (project) {
-    
+    project.title = title
+    project.description = description
+    project.image = image
+    const updatedProject = await project.save()
     res.json(updatedProject)
   } else {
     res.status(404)
@@ -107,6 +115,21 @@ const createTask = asyncHandler(async (req, res) => {
 // @route   PUT /api/projects/:id/task
 // @access  Private/Admin
 const updateTask = asyncHandler(async (req, res) => {
+  const task = await Task.findById(req.params.id)
+  const {
+    name,
+    completed,target
+  } = req.body
+  if (task) {
+    task.name = name
+    task.completed = Number(completed)
+    task.target = Number(target)
+    const updatedTask = await task.save()
+    res.json(updatedTask)
+  } else {
+    res.status(404)
+    throw new Error('Task not found')
+  }
 })
 
 // @desc    Delete a Task
@@ -160,8 +183,8 @@ const createGraph = asyncHandler(async (req,res)=>{
     throw new Error('Project not found')
   }
 })
-// @desc    Delete a Task
-// @route   DELETE /api/projects/:id/task
+// @desc    Delete a Label
+// @route   DELETE /api/projects/:id/graph
 // @access  Private/Admin
 const deleteLabel= asyncHandler(async (req, res) => {
   const label = await Graph.findById(req.params.id)
@@ -171,6 +194,27 @@ const deleteLabel= asyncHandler(async (req, res) => {
   } else {
     res.status(404)
     throw new Error('label not found')
+  }
+})
+
+// @desc    Update Pie Label
+// @route   PUT /api/projects/:id/PieChart
+// @access  Private/Admin
+const updateGraph = asyncHandler(async (req, res) => {
+  const Label = await Graph.findById(req.params.id)
+  const {
+    label,
+    before,after
+  } = req.body
+  if (Label) {
+    Label.label = label
+    Label.before = Number(before)
+    Label.after = Number(after)
+    const updatedLabel = await Label.save()
+    res.json(updatedLabel)
+  } else {
+    res.status(404)
+    throw new Error('Label not found')
   }
 })
 
@@ -222,6 +266,26 @@ const deletePie= asyncHandler(async (req, res) => {
     throw new Error('label not found')
   }
 })
+// @desc    Update Pie Label
+// @route   PUT /api/projects/:id/PieChart
+// @access  Private/Admin
+const updatePie = asyncHandler(async (req, res) => {
+  const pieLabel = await Pie.findById(req.params.id)
+  const {
+    label,
+    value
+  } = req.body
+  if (pieLabel) {
+    pieLabel.label = label
+    pieLabel.value = value
+    const updatedLabel = await pieLabel.save()
+    res.json(updatedLabel)
+  } else {
+    res.status(404)
+    throw new Error('Label not found')
+  }
+})
+
 
 export {
   getProjects,
@@ -235,6 +299,6 @@ export {
   deleteTask,
   createGraph,
   getLabels,
-  deleteLabel,
-  createPie,getPie,deletePie
+  deleteLabel,updateGraph,
+  createPie,getPie,deletePie,updatePie
 }
