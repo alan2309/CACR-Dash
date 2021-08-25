@@ -18,6 +18,7 @@ function BarGraphAdmin() {
   const [cause, setCause]=useState("")
   const [beforeVal, setBeforeVal]=useState(null)
   const [afterVal, setAfterVal]=useState(null)
+  const [idVal,setIdVal]=useState(null)
 
 
   useEffect(() => {
@@ -61,9 +62,11 @@ function BarGraphAdmin() {
     });
   };
   const editHandler = async (pid) =>{
+    console.log(pid)
     await axios
     .get(`http://localhost:5000/api/projects/${pid}/graphLabel`)
     .then((res) =>{
+      setIdVal(pid)
       console.log(res.data);
       setCause(res.data.label)
       setBeforeVal(res.data.before)
@@ -89,6 +92,7 @@ function BarGraphAdmin() {
     await axios
     .put(`http://localhost:5000/api/projects/${pid}/graphLabel`,item)
     .then((res) =>{
+      setIdVal(pid)
       console.log(res);
     })
     .catch((err) => console.log(err));
@@ -145,7 +149,7 @@ function BarGraphAdmin() {
             <td><input type="text" className="form-control" placeholder="Enter a cause" value={cause} onChange={(e)=>{setCause(e.target.value)}} required/></td>
             <td><input type="number" className="form-control" placeholder="Before..." value={beforeVal} onChange={(e)=>{setBeforeVal(e.target.value)}} required/></td>
             <td><input type="number" className="form-control" placeholder="After..." value={afterVal} onChange={(e)=>{setAfterVal(e.target.value)}} required/></td>
-            <td><button className="btn btn-lg btn-danger" onClick={updateUser}>Update</button></td>
+            <td><button className="btn btn-lg btn-danger" onClick={updateUser(idVal)}>Update</button></td>
           </tr>
           {labels.map((label, index) => {
             return (
