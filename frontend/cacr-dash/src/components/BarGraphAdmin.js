@@ -71,7 +71,7 @@ function BarGraphAdmin() {
 
   const deleteHandler = async (pid) => {
     await axios
-      .delete(`http://localhost:5000/api/projects/${pid}/graph`)
+      .delete(`http://localhost:5000/api/projects/${pid}/graphLabel`)
       .then((res) => {
         console.log(res);
         const labs = labels.filter((lab) => {
