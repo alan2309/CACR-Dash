@@ -11,7 +11,7 @@ import {
     getTasks,
     updateTask,
     deleteTask,
-    createGraph,getLabels,deleteLabel,updateGraph,
+    createGraph,getLabels,deleteLabel,updateGraph,getLabelById,
     createPie,getPie,deletePie,updatePie
   }from '../controllers/projectController.js'
   import {protect,admin} from '../middleware/authMiddleware.js'
@@ -35,8 +35,12 @@ router.route('/:id/task')
 router.route('/:id/graph')
 .get(getLabels)
 .post(createGraph)
+ 
+
+router.route('/:id/graphLabel')
+.get(getLabelById)
+.put(updateGraph) 
 .delete(deleteLabel)
-.put(updateGraph)  
 
 router.route('/:id/PieChart')
 .get(getPie)

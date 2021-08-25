@@ -161,6 +161,19 @@ else{
   throw new Error('Project not found')
 }
 })
+// @desc    GET project Label by id
+// @route   GET /api/projects/:id/graphLabel
+// @access  Private/admin
+const getLabelById=asyncHandler(async (req,res)=>{
+  const label = await Graph.findById(req.params.id)
+  if(label){
+  res.status(200).json(label)
+}
+else{
+  res.status(404)
+  throw new Error('Label not found')
+}
+})
 
 // @desc    Create project Labels
 // @route   POST /api/projects/:id/graph
@@ -299,6 +312,6 @@ export {
   deleteTask,
   createGraph,
   getLabels,
-  deleteLabel,updateGraph,
+  deleteLabel,updateGraph,getLabelById,
   createPie,getPie,deletePie,updatePie
 }
