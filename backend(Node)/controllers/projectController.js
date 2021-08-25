@@ -229,13 +229,13 @@ const deleteLabel= asyncHandler(async (req, res) => {
 const updateGraph = asyncHandler(async (req, res) => {
   const Label = await Graph.findById(req.params.id)
   const {
-    label,
-    before,after
+    cause,
+    beforeVal,afterVal
   } = req.body
   if (Label) {
-    Label.label = label
-    Label.before = Number(before)
-    Label.after = Number(after)
+    Label.label = cause
+    Label.before = Number(beforeVal)
+    Label.after = Number(afterVal)
     const updatedLabel = await Label.save()
     res.json(updatedLabel)
   } else {

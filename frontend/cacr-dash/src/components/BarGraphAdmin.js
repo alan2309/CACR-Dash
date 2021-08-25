@@ -61,11 +61,13 @@ function BarGraphAdmin() {
     });
   };
   const editHandler = async (pid) =>{
-    console.log(pid)
     await axios
-    .get(`http://localhost:5000/api/projects/${id}/graph`)
+    .get(`http://localhost:5000/api/projects/${pid}/graphLabel`)
     .then((res) =>{
-      console.log(res);
+      console.log(res.data);
+      setCause(res.data.label)
+      setBeforeVal(res.data.before)
+      setAfterVal(res.data.after)
     })
   }
 
@@ -81,6 +83,16 @@ function BarGraphAdmin() {
       })
       .catch((err) => console.log(err));
   };
+
+  const updateUser = async (pid) => {
+    let item = {cause, beforeVal, afterVal}
+    await axios
+    .put(`http://localhost:5000/api/projects/${pid}/graphLabel`,item)
+    .then((res) =>{
+      console.log(res);
+    })
+    .catch((err) => console.log(err));
+  }
 
   return (
     <div className="container">
@@ -130,10 +142,10 @@ function BarGraphAdmin() {
         <tbody>
           <tr>
             <td>Changes</td>
-            <td><input type="text" className="form-control" placeholder="Enter a cause" value={cause} required/></td>
-            <td><input type="number" className="form-control" placeholder="Before..." value={beforeVal} required/></td>
-            <td><input type="number" className="form-control" placeholder="After..." value={afterVal} required/></td>
-            <td><button className="btn btn-lg btn-danger">Update</button></td>
+            <td><input type="text" className="form-control" placeholder="Enter a cause" value={cause} onChange={(e)=>{setCause(e.target.value)}} required/></td>
+            <td><input type="number" className="form-control" placeholder="Before..." value={beforeVal} onChange={(e)=>{setBeforeVal(e.target.value)}} required/></td>
+            <td><input type="number" className="form-control" placeholder="After..." value={afterVal} onChange={(e)=>{setAfterVal(e.target.value)}} required/></td>
+            <td><button className="btn btn-lg btn-danger" onClick={updateUser}>Update</button></td>
           </tr>
           {labels.map((label, index) => {
             return (
