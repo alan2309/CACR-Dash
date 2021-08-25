@@ -53,7 +53,7 @@ function ProgressBarAdmin() {
   };
   const deleteHandler = async (pid) => {
     await axios
-      .delete(`http://localhost:5000/api/projects/${pid}/task`)
+      .delete(`http://localhost:5000/api/projects/${pid}/taskLabel`)
       .then((res) => {
         console.log(res);
         const labs = labels.filter((lab) => {

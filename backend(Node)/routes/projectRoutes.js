@@ -8,7 +8,7 @@ import {
     createProject,
     updateProject,
     createTask,
-    getTasks,
+    getTasks,getTaskById,
     updateTask,
     deleteTask,
     createGraph,getLabels,deleteLabel,updateGraph,getLabelById,
@@ -29,6 +29,9 @@ router.route('/:id')
 router.route('/:id/task')
   .post(createTask)
   .get(getTasks)
+ 
+router.route('/:id/taskLabel')
+  .get(getTaskById)
   .put(updateTask)
   .delete(deleteTask)
  

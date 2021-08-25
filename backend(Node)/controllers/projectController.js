@@ -89,6 +89,19 @@ const getTasks=asyncHandler(async (req,res)=>{
   const tasks = await Task.find({"project":req.params.id})
   res.status(200).json(tasks)
 })
+// @desc    GET Task Label by id
+// @route   GET /api/projects/:id/taskLabel
+// @access  Private/admin
+const getTaskById=asyncHandler(async (req,res)=>{
+  const label = await Task.findById(req.params.id)
+  if(label){
+  res.status(200).json(label)
+}
+else{
+  res.status(404)
+  throw new Error('Label not found')
+}
+})
 
 // @desc    Create new task
 // @route   POST /api/projects/:id/task
@@ -112,7 +125,7 @@ const createTask = asyncHandler(async (req, res) => {
   }
 })
 // @desc    Update a Task
-// @route   PUT /api/projects/:id/task
+// @route   PUT /api/projects/:id/taskLabel
 // @access  Private/Admin
 const updateTask = asyncHandler(async (req, res) => {
   const task = await Task.findById(req.params.id)
@@ -133,7 +146,7 @@ const updateTask = asyncHandler(async (req, res) => {
 })
 
 // @desc    Delete a Task
-// @route   DELETE /api/projects/:id/task
+// @route   DELETE /api/projects/:id/taskLabel
 // @access  Private/Admin
 const deleteTask = asyncHandler(async (req, res) => {
   const task = await Task.findById(req.params.id)
@@ -161,7 +174,7 @@ else{
   throw new Error('Project not found')
 }
 })
-// @desc    GET project Label by id
+// @desc    GET graph Label by id
 // @route   GET /api/projects/:id/graphLabel
 // @access  Private/admin
 const getLabelById=asyncHandler(async (req,res)=>{
@@ -197,7 +210,7 @@ const createGraph = asyncHandler(async (req,res)=>{
   }
 })
 // @desc    Delete a Label
-// @route   DELETE /api/projects/:id/graph
+// @route   DELETE /api/projects/:id/graphLabel
 // @access  Private/Admin
 const deleteLabel= asyncHandler(async (req, res) => {
   const label = await Graph.findById(req.params.id)
@@ -210,8 +223,8 @@ const deleteLabel= asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Update Pie Label
-// @route   PUT /api/projects/:id/PieChart
+// @desc    Update Graph Label
+// @route   PUT /api/projects/:id/graphLabel
 // @access  Private/Admin
 const updateGraph = asyncHandler(async (req, res) => {
   const Label = await Graph.findById(req.params.id)
@@ -280,7 +293,7 @@ const createPie = asyncHandler(async (req,res)=>{
   }
 })
 // @desc    Delete a Pie Label
-// @route   DELETE /api/projects/:id/PieChart
+// @route   DELETE /api/projects/:id/pieLabel
 // @access  Private/Admin
 const deletePie= asyncHandler(async (req, res) => {
   const label = await Pie.findById(req.params.id)
@@ -293,7 +306,7 @@ const deletePie= asyncHandler(async (req, res) => {
   }
 })
 // @desc    Update Pie Label
-// @route   PUT /api/projects/:id/PieChart
+// @route   PUT /api/projects/:id/pieLabel
 // @access  Private/Admin
 const updatePie = asyncHandler(async (req, res) => {
   const pieLabel = await Pie.findById(req.params.id)
@@ -319,7 +332,7 @@ export {
   deleteProject,
   createProject,
   updateProject,
-  createTask,
+  createTask,getTaskById,
   getTasks,
   updateTask,
   deleteTask,
