@@ -11,7 +11,8 @@ import {
     getTasks,
     updateTask,
     deleteTask,
-    createGraph,getLabels,deleteLabel
+    createGraph,getLabels,deleteLabel,
+    createPie,getPie,deletePie
   }from '../controllers/projectController.js'
   import {protect,admin} from '../middleware/authMiddleware.js'
 const router = express.Router();
@@ -34,5 +35,10 @@ router.route('/:id/graph')
 .get(getLabels)
 .post(createGraph)
 .delete(deleteLabel)  
+
+router.route('/:id/PieChart')
+.get(getPie)
+.post(createPie)
+.delete(deletePie)  
 
 export default router;

@@ -34,8 +34,13 @@ function BarGraphAdmin() {
       before: data.before,
       after: data.after
     };
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
     await axios
-      .post(`http://localhost:5000/api/projects/${id}/graph`, newData)
+      .post(`http://localhost:5000/api/projects/${id}/graph`, newData, config)
       .then((res) => {
         console.log(res.data);
         setLabels([res.data, ...labels]);
@@ -95,7 +100,7 @@ function BarGraphAdmin() {
           <button className="btn btn-lg btn-danger">Add</button>
         </form>
       </div>
-      <Link to="/admin/programs/PieChart">
+      <Link to={`/admin/programs/${id}/PieChart`}>
         <button className="btn btn-lg btn-danger">Proceed</button>
       </Link>
       <Table striped bordered hover size="sm">

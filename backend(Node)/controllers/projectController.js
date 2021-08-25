@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import {Project,Task} from '../models/projectModel.js'
-import Graph from '../models/graphModel.js'
+import {Graph,Pie }from '../models/graphModel.js'
 
 // @desc    Fetch all projects
 // @route   GET /api/projects
@@ -174,6 +174,55 @@ const deleteLabel= asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    GET Pie Labels
+// @route   GET /api/projects/:id/PieChart
+// @access  Private/admin
+const getPie=asyncHandler(async (req,res)=>{
+  const project = await Project.findById(req.params.id)
+  if(project){
+  const labels = await Pie.find({"project":req.params.id}).sort([['createdAt', -1]])
+  res.status(200).json(labels)
+}
+else{
+  res.status(404)
+  throw new Error('Project not found')
+}
+})
+
+// @desc    Create Pie Labels
+// @route   POST /api/projects/:id/PieChart
+// @access  Private/admin
+const createPie = asyncHandler(async (req,res)=>{
+  const project = await Project.findById(req.params.id)
+  const {label,value} = req.body
+  if(project){
+    const pie =new Pie({
+      project:req.params.id,
+      label,
+      value: Number(value),
+    })
+    const labelCreated = await pie.save() 
+    res.status(201).json(labelCreated)
+  }
+  else{
+    res.status(404)
+    throw new Error('Project not found')
+  }
+})
+// @desc    Delete a Pie Label
+// @route   DELETE /api/projects/:id/PieChart
+// @access  Private/Admin
+const deletePie= asyncHandler(async (req, res) => {
+  const label = await Pie.findById(req.params.id)
+  if (label) {
+    await label.remove()
+    res.json({ message: 'label removed' })
+  } else {
+    res.status(404)
+    throw new Error('label not found')
+  }
+})
+
 export {
   getProjects,
   getProjectById,
@@ -186,5 +235,6 @@ export {
   deleteTask,
   createGraph,
   getLabels,
-  deleteLabel
+  deleteLabel,
+  createPie,getPie,deletePie
 }

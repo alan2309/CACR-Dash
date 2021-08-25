@@ -1,5 +1,23 @@
 import mongoose from "mongoose";
 
+const pieSchema=mongoose.Schema({
+    project: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Project',
+    },
+    label:{
+        type:String,
+        required:true
+    },
+    value:{
+        type:Number,
+        required:true
+    }
+},
+{
+    timestamps: true,
+})
 const graphSchema = mongoose.Schema({
     project: {
         type: mongoose.Schema.Types.ObjectId,
@@ -24,4 +42,5 @@ const graphSchema = mongoose.Schema({
 }
 )
 const Graph = mongoose.model('Graph',graphSchema)
-export default Graph 
+const Pie = mongoose.model('Pie',pieSchema)
+export{Graph,Pie}
