@@ -131,12 +131,12 @@ const updateTask = asyncHandler(async (req, res) => {
   const task = await Task.findById(req.params.id)
   const {
     name,
-    completed,target
+    target,completed
   } = req.body
   if (task) {
     task.name = name
-    task.completed = Number(completed)
     task.target = Number(target)
+    task.completed = Number(completed)
     const updatedTask = await task.save()
     res.json(updatedTask)
   } else {
