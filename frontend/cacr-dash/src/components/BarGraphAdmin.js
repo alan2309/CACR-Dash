@@ -15,21 +15,21 @@ function BarGraphAdmin() {
     after: null
   });
 
-  const [cause, setCause]=useState("")
-  const [beforeVal, setBeforeVal]=useState(null)
-  const [afterVal, setAfterVal]=useState(null)
-  const [idVal,setIdVal]=useState(null)
-
+  const [cause, setCause] = useState("");
+  const [beforeVal, setBeforeVal] = useState(null);
+  const [afterVal, setAfterVal] = useState(null);
+  const [idVal, setIdVal] = useState(null);
 
   useEffect(() => {
     const getLabels = async () => {
       await axios
         .get(`http://localhost:5000/api/projects/${id}/graph`)
         .then((res) => {
+          setIdVal(res.data[0]._id);
           setLabels(res.data);
-          setCause(res.data[0].label)
-          setBeforeVal(res.data[0].before)
-          setAfterVal(res.data[0].after)
+          setCause(res.data[0].label);
+          setBeforeVal(res.data[0].before);
+          setAfterVal(res.data[0].after);
         })
         .catch((err) => console.log(err));
     };
@@ -61,18 +61,16 @@ function BarGraphAdmin() {
       after: null
     });
   };
-  const editHandler = async (pid) =>{
-    console.log(pid)
+  const editHandler = async (pid) => {
     await axios
-    .get(`http://localhost:5000/api/projects/${pid}/graphLabel`)
-    .then((res) =>{
-      setIdVal(pid)
-      console.log(res.data);
-      setCause(res.data.label)
-      setBeforeVal(res.data.before)
-      setAfterVal(res.data.after)
-    })
-  }
+      .get(`http://localhost:5000/api/projects/${pid}/graphLabel`)
+      .then((res) => {
+        setIdVal(pid);
+        setCause(res.data.label);
+        setBeforeVal(res.data.before);
+        setAfterVal(res.data.after);
+      });
+  };
 
   const deleteHandler = async (pid) => {
     await axios
@@ -88,15 +86,19 @@ function BarGraphAdmin() {
   };
 
   const updateUser = async (pid) => {
-    let item = {cause, beforeVal, afterVal}
+    let item = { cause, beforeVal, afterVal };
     await axios
-    .put(`http://localhost:5000/api/projects/${pid}/graphLabel`,item)
-    .then((res) =>{
-      setIdVal(pid)
-      console.log(res);
-    })
-    .catch((err) => console.log(err));
-  }
+      .put(`http://localhost:5000/api/projects/${pid}/graphLabel`, item)
+      .then((res) => {
+        console.log(res.data);
+        const labs = labels.filter((lab) => {
+          return lab._id !== res.data._id;
+        });
+        const labs2 = [res.data, ...labs];
+        setLabels(labs2);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="container">
@@ -146,10 +148,50 @@ function BarGraphAdmin() {
         <tbody>
           <tr>
             <td>Changes</td>
-            <td><input type="text" className="form-control" placeholder="Enter a cause" value={cause} onChange={(e)=>{setCause(e.target.value)}} required/></td>
-            <td><input type="number" className="form-control" placeholder="Before..." value={beforeVal} onChange={(e)=>{setBeforeVal(e.target.value)}} required/></td>
-            <td><input type="number" className="form-control" placeholder="After..." value={afterVal} onChange={(e)=>{setAfterVal(e.target.value)}} required/></td>
-            <td><button className="btn btn-lg btn-danger" onClick={updateUser(idVal)}>Update</button></td>
+            <td>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter a cause"
+                value={cause}
+                onChange={(e) => {
+                  setCause(e.target.value);
+                }}
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Before..."
+                value={beforeVal}
+                onChange={(e) => {
+                  setBeforeVal(e.target.value);
+                }}
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="After..."
+                value={afterVal}
+                onChange={(e) => {
+                  setAfterVal(e.target.value);
+                }}
+                required
+              />
+            </td>
+            <td>
+              <button
+                className="btn btn-lg btn-danger"
+                onClick={() => updateUser(idVal)}
+              >
+                Update
+              </button>
+            </td>
           </tr>
           {labels.map((label, index) => {
             return (
@@ -160,10 +202,10 @@ function BarGraphAdmin() {
                 <td>{label.after}</td>
                 <td>
                   <button
-                  onClick={() =>editHandler(label._id)}
-                  style={{border:"none"}}
+                    onClick={() => editHandler(label._id)}
+                    style={{ border: "none" }}
                   >
-                  <FontAwesomeIcon style={{ color: "blue" }} icon={faEdit} />
+                    <FontAwesomeIcon style={{ color: "blue" }} icon={faEdit} />
                   </button>
                   <button
                     onClick={() => deleteHandler(label._id)}
@@ -177,7 +219,7 @@ function BarGraphAdmin() {
           })}
         </tbody>
       </Table>
-            <Link to={`/admin/programs/${id}/PieChart`}>
+      <Link to={`/admin/programs/${id}/PieChart`}>
         <button className="btn btn-lg btn-danger">Proceed</button>
       </Link>
     </div>
