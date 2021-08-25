@@ -105,6 +105,7 @@ function ProgressBarAdmin() {
             <th>Label</th>
             <th>Progress</th>
             <th>status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>

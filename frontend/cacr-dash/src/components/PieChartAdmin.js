@@ -93,15 +93,13 @@ function PieChartAdmin() {
           <button className="btn btn-lg btn-danger">Add</button>
         </form>
       </div>
-      <Link to={`/admin/programs/${id}/Progress`}>
-        <button className="btn btn-lg btn-danger">Proceed</button>
-      </Link>
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
             <th>#</th>
             <th>Label</th>
             <th>Value</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -125,6 +123,9 @@ function PieChartAdmin() {
           })}
         </tbody>
       </Table>
+      <Link to={`/admin/programs/${id}/Progress`}>
+        <button className="btn btn-lg btn-danger">Proceed</button>
+      </Link>
     </div>
   );
 }

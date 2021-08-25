@@ -15,12 +15,20 @@ function BarGraphAdmin() {
     after: null
   });
 
+  const [cause, setCause]=useState("")
+  const [beforeVal, setBeforeVal]=useState(null)
+  const [afterVal, setAfterVal]=useState(null)
+
+
   useEffect(() => {
     const getLabels = async () => {
       await axios
         .get(`http://localhost:5000/api/projects/${id}/graph`)
         .then((res) => {
           setLabels(res.data);
+          setCause(res.data[0].label)
+          setBeforeVal(res.data[0].before)
+          setAfterVal(res.data[0].after)
         })
         .catch((err) => console.log(err));
     };
@@ -52,6 +60,15 @@ function BarGraphAdmin() {
       after: null
     });
   };
+  const editHandler = async (pid) =>{
+    console.log(pid)
+    await axios
+    .get(`http://localhost:5000/api/projects/${id}/graph`)
+    .then((res) =>{
+      console.log(res);
+    })
+  }
+
   const deleteHandler = async (pid) => {
     await axios
       .delete(`http://localhost:5000/api/projects/${pid}/graph`)
@@ -100,9 +117,6 @@ function BarGraphAdmin() {
           <button className="btn btn-lg btn-danger">Add</button>
         </form>
       </div>
-      <Link to={`/admin/programs/${id}/PieChart`}>
-        <button className="btn btn-lg btn-danger">Proceed</button>
-      </Link>
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
@@ -110,9 +124,17 @@ function BarGraphAdmin() {
             <th>Label</th>
             <th>Before</th>
             <th>After</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>Changes</td>
+            <td><input type="text" className="form-control" placeholder="Enter a cause" value={cause} required/></td>
+            <td><input type="number" className="form-control" placeholder="Before..." value={beforeVal} required/></td>
+            <td><input type="number" className="form-control" placeholder="After..." value={afterVal} required/></td>
+            <td><button className="btn btn-lg btn-danger">Update</button></td>
+          </tr>
           {labels.map((label, index) => {
             return (
               <tr key={label._id}>
@@ -121,7 +143,12 @@ function BarGraphAdmin() {
                 <td>{label.before}</td>
                 <td>{label.after}</td>
                 <td>
+                  <button
+                  onClick={() =>editHandler(label._id)}
+                  style={{border:"none"}}
+                  >
                   <FontAwesomeIcon style={{ color: "blue" }} icon={faEdit} />
+                  </button>
                   <button
                     onClick={() => deleteHandler(label._id)}
                     style={{ border: "none" }}
@@ -134,6 +161,9 @@ function BarGraphAdmin() {
           })}
         </tbody>
       </Table>
+            <Link to={`/admin/programs/${id}/PieChart`}>
+        <button className="btn btn-lg btn-danger">Proceed</button>
+      </Link>
     </div>
   );
 }
