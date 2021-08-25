@@ -20,13 +20,14 @@ const router = express.Router();
 router.route('/')
 .post(createProject)
 .get(getProjects)
+
 router.route('/:id/task')
   .post(createTask)
   .get(getTasks)
   .put(updateTask)
   .delete(deleteTask)
-router
-  .route('/:id')
+
+router.route('/:id')
   .get(getProjectById)
   .delete(deleteProject)
   .put(updateProject)
