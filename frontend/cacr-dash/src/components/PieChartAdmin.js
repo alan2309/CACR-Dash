@@ -55,7 +55,7 @@ function PieChartAdmin() {
   };
   const deleteHandler = async (pid) => {
     await axios
-      .delete(`http://localhost:5000/api/projects/${pid}/PieChart`)
+      .delete(`http://localhost:5000/api/projects/${pid}/pieLabel`)
       .then((res) => {
         console.log(res);
         const labs = labels.filter((lab) => {

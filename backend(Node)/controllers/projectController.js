@@ -245,6 +245,19 @@ else{
   throw new Error('Project not found')
 }
 })
+// @desc    GET Pie Label by id
+// @route   GET /api/projects/:id/pieLabel
+// @access  Private/admin
+const getPieById=asyncHandler(async (req,res)=>{
+  const label = await Pie.findById(req.params.id)
+  if(label){
+  res.status(200).json(label)
+}
+else{
+  res.status(404)
+  throw new Error('Label not found')
+}
+})
 
 // @desc    Create Pie Labels
 // @route   POST /api/projects/:id/PieChart
@@ -313,5 +326,5 @@ export {
   createGraph,
   getLabels,
   deleteLabel,updateGraph,getLabelById,
-  createPie,getPie,deletePie,updatePie
+  createPie,getPie,deletePie,updatePie,getPieById
 }
