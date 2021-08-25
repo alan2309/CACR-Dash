@@ -311,11 +311,11 @@ const deletePie= asyncHandler(async (req, res) => {
 const updatePie = asyncHandler(async (req, res) => {
   const pieLabel = await Pie.findById(req.params.id)
   const {
-    label,
+    cause,
     value
   } = req.body
   if (pieLabel) {
-    pieLabel.label = label
+    pieLabel.label = cause
     pieLabel.value = value
     const updatedLabel = await pieLabel.save()
     res.json(updatedLabel)

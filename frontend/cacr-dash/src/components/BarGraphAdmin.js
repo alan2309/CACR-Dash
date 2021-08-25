@@ -146,7 +146,7 @@ function BarGraphAdmin() {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr className="edit">
             <td>Changes</td>
             <td>
               <input

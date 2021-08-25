@@ -14,11 +14,19 @@ function PieChartAdmin() {
   });
   const [labels, setLabels] = useState([]);
 
+  const [cause, setCause] = useState("");
+  const [value, setValue] = useState(null);
+  const [idVal, setIdVal] = useState(null);
+
+
   useEffect(() => {
     const getLabels = async () => {
       await axios
         .get(`http://localhost:5000/api/projects/${id}/PieChart`)
         .then((res) => {
+          setIdVal(res.data[0]._id);
+          setCause(res.data[0].label);
+          setValue(res.data[0].value);
           setLabels(res.data);
         })
         .catch((err) => console.log(err));
@@ -53,6 +61,17 @@ function PieChartAdmin() {
       val: null
     });
   };
+
+  const editHandler = async (pid) => {
+    await axios
+      .get(`http://localhost:5000/api/projects/${pid}/pieLabel`)
+      .then((res) => {
+        setIdVal(pid);
+        setCause(res.data.label);
+        setValue(res.data.value);
+      });
+  };
+
   const deleteHandler = async (pid) => {
     await axios
       .delete(`http://localhost:5000/api/projects/${pid}/pieLabel`)
@@ -62,6 +81,21 @@ function PieChartAdmin() {
           return lab._id !== pid;
         });
         setLabels(labs);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const updateUser = async (pid) => {
+    let item = { cause, value };
+    await axios
+      .put(`http://localhost:5000/api/projects/${pid}/pieLabel`, item)
+      .then((res) => {
+        console.log(res.data);
+        const labs = labels.filter((lab) => {
+          return lab._id !== res.data._id;
+        });
+        const labs2 = [res.data, ...labs];
+        setLabels(labs2);
       })
       .catch((err) => console.log(err));
   };
@@ -103,6 +137,41 @@ function PieChartAdmin() {
           </tr>
         </thead>
         <tbody>
+        <tr className="edit">
+            <td>Changes</td>
+            <td>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter a cause"
+                value={cause}
+                onChange={(e) => {
+                  setCause(e.target.value);
+                }}
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Value..."
+                value={value}
+                onChange={(e) => {
+                  setValue(e.target.value);
+                }}
+                required
+              />
+            </td>
+            <td>
+              <button
+                className="btn btn-lg btn-danger"
+                onClick={() => updateUser(idVal)}
+              >
+                Update
+              </button>
+            </td>
+          </tr>
           {labels.map((label, index) => {
             return (
               <tr key={label._id}>
@@ -110,7 +179,12 @@ function PieChartAdmin() {
                 <td>{label.label}</td>
                 <td>{label.value}</td>
                 <td>
-                  <FontAwesomeIcon style={{ color: "blue" }} icon={faEdit} />
+                <button
+                    onClick={() => editHandler(label._id)}
+                    style={{ border: "none" }}
+                  >
+                    <FontAwesomeIcon style={{ color: "blue" }} icon={faEdit} />
+                  </button>
                   <button
                     onClick={() => deleteHandler(label._id)}
                     style={{ border: "none" }}
