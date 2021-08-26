@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import BarGraphAdmin from "./components/BarGraphAdmin";
 import PieChartAdmin from "./components/PieChartAdmin";
 import ProgressBarAdmin from "./components/ProgressBarAdmin";
+import EditTitle from "./components/EditTitle";
 
 function App() {
   const [user, setUser] = useState({ email: "", password: "" });
@@ -38,7 +39,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        <Navbar></Navbar>
         <Switch>
           <Route path="/" exact render={(props) => <Programs />} />
           <Route
@@ -48,11 +49,11 @@ function App() {
               return null;
             }}
           />
+          <Route path="/programs" exact render={(props) => <Programs />} />
           <Route
             path="/admin/login"
             render={(props) => <SignIn Login={Login} />}
           />
-          <Route path="/programs" exact render={(props) => <Programs />} />
           <Route path="/programs/status/:id" render={(props) => <Statuses />} />
           <Route path="/programs/details/:id" render={(props) => <Details />} />
           <Route path="/admin/programs/" exact render={(props) => <Admin />} />
@@ -70,6 +71,11 @@ function App() {
             path="/admin/programs/:id/Progress"
             exact
             render={(props) => <ProgressBarAdmin />}
+          />
+          <Route 
+          path="/admin/programs/:id/edit"
+          exact
+          render={(props) => <EditTitle/>}
           />
         </Switch>
       </div>

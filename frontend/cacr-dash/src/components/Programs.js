@@ -3,6 +3,7 @@ import Carousel from "react-bootstrap/Carousel";
 import "../CSS/Programs.css";
 import ProjectCard from "./ProjectCard";
 import axios from "axios";
+import SearchBar from "./SearchBar";
 
 function Programs() {
   const [projects, setProjects] = useState([]);
