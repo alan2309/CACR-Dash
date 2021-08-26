@@ -131,12 +131,12 @@ const updateTask = asyncHandler(async (req, res) => {
   const task = await Task.findById(req.params.id)
   const {
     name,
-    completed,target
+    target,completed
   } = req.body
   if (task) {
     task.name = name
-    task.completed = Number(completed)
     task.target = Number(target)
+    task.completed = Number(completed)
     const updatedTask = await task.save()
     res.json(updatedTask)
   } else {
@@ -311,11 +311,11 @@ const deletePie= asyncHandler(async (req, res) => {
 const updatePie = asyncHandler(async (req, res) => {
   const pieLabel = await Pie.findById(req.params.id)
   const {
-    label,
+    cause,
     value
   } = req.body
   if (pieLabel) {
-    pieLabel.label = label
+    pieLabel.label = cause
     pieLabel.value = value
     const updatedLabel = await pieLabel.save()
     res.json(updatedLabel)

@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+
 function ProgressBarAdmin() {
   const id = useParams().id;
   const [data, setData] = useState({
@@ -14,17 +15,37 @@ function ProgressBarAdmin() {
   });
   const [labels, setLabels] = useState([]);
 
+  const [name, setName] = useState("");
+  const [target, setTarget] = useState(null);
+  const [completed, setCompleted] = useState(null);
+  const [idVal, setIdVal] = useState(null);
+
   useEffect(() => {
     const getLabels = async () => {
       await axios
         .get(`http://localhost:5000/api/projects/${id}/task`)
         .then((res) => {
+          setIdVal(res.data[0]._id);
           setLabels(res.data);
+          setName(res.data[0].name);
+          setTarget(res.data[0].target);
+          setCompleted(res.data[0].completed);
         })
         .catch((err) => console.log(err));
     };
     getLabels();
   }, []);
+
+  const editHandler = async (pid) => {
+    await axios
+      .get(`http://localhost:5000/api/projects/${pid}/taskLabel`)
+      .then((res) => {
+        setIdVal(pid);
+        setName(res.data.name);
+        setTarget(res.data.target);
+        setCompleted(res.data.completed);
+      });
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -63,6 +84,22 @@ function ProgressBarAdmin() {
       })
       .catch((err) => console.log(err));
   };
+
+  const updateUser = async (pid) => {
+    let item = { name, target, completed };
+    await axios
+      .put(`http://localhost:5000/api/projects/${pid}/taskLabel`, item)
+      .then((res) => {
+        console.log(res.data);
+        const labs = labels.filter((lab) => {
+          return lab._id !== res.data._id;
+        });
+        const labs2 = [res.data, ...labs];
+        setLabels(labs2);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="container">
       <h4>Add Program Details</h4>
@@ -109,6 +146,53 @@ function ProgressBarAdmin() {
           </tr>
         </thead>
         <tbody>
+        <tr className="edit">
+            <td>Changes</td>
+            <td>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter task"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Enter Target"
+                value={target}
+                onChange={(e) => {
+                  setTarget(e.target.value);
+                }}
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Completed"
+                value={completed}
+                onChange={(e) => {
+                  setCompleted(e.target.value);
+                }}
+                required
+              />
+            </td>
+            <td>
+              <button
+                className="btn btn-lg btn-danger"
+                onClick={() => updateUser(idVal)}
+              >
+                Update
+              </button>
+            </td>
+          </tr>
           {labels.map((label, index) => {
             return (
               <tr key={label._id}>
@@ -121,7 +205,12 @@ function ProgressBarAdmin() {
                   {label.completed < label.target ? "incomplete" : "completed"}
                 </td>
                 <td>
-                  <FontAwesomeIcon style={{ color: "blue" }} icon={faEdit} />
+                <button
+                    onClick={() => editHandler(label._id)}
+                    style={{ border: "none" }}
+                  >
+                    <FontAwesomeIcon style={{ color: "blue" }} icon={faEdit} />
+                  </button>
                   <button
                     onClick={() => deleteHandler(label._id)}
                     style={{ border: "none" }}
@@ -134,6 +223,9 @@ function ProgressBarAdmin() {
           })}
         </tbody>
       </Table>
+      <Link to={`/admin/programs`}>
+        <button className="btn btn-lg btn-danger">Finish</button>
+      </Link>
     </div>
   );
 }
