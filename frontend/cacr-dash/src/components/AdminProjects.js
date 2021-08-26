@@ -22,15 +22,19 @@ const AdminProjects = ({ projects, deleteHandler }) => {
                 <td>{proj.title}</td>
                 <td>
                   <Link to={`/admin/programs/${proj._id}/edit`}>
+                    <button className="btn btn-sm btn-danger updel">
                     <FontAwesomeIcon style={{ color: "blue" }} icon={faEdit} />
+                    </button>
                   </Link>
                 </td>
+                <td>
                 <button
                   className="btn btn-sm btn-danger updel"
                   onClick={() => deleteHandler(proj._id)}
                 >
-                  <FontAwesomeIcon icon={faTrash} value={proj._id} />
+                  <FontAwesomeIcon style={{ color: "red" }} icon={faTrash} value={proj._id} />
                 </button>
+                </td>
               </tr>
             );
           })}

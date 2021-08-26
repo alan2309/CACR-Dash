@@ -57,12 +57,12 @@ const EditTitle = () => {
           required
         ></textarea>
         <input type="file" className="custom-file-input" id="customFile" />
-        <button className="w-100 btn btn-lg btn-primary" onClick={() => updateProgram(idVal)}>
+        <button className="w-100 btn btn-lg btn-danger" onClick={() => updateProgram(idVal)}>
           Update Program 
         </button>
         </form>
         <Link to={`/admin/programs/${id}/graphs`}>
-        <button className="btn btn-lg btn-primary" type="submit">Proceed</button>
+        <button className="btn btn-lg btn-danger">Proceed</button>
         </Link>
         </div>
     )
