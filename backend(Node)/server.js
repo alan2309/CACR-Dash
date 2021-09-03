@@ -22,4 +22,9 @@ app.use('/api/projects',projectRoutes);
 app.use('/api/users',userRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT,console.log(`server at ${PORT}`));
+const server = app.listen(PORT,()=>console.log(`server at ${PORT}`));
+
+process.on("unHandledRejection",(err,promise)=>{
+    console.log(`Logged error:${err}`);
+    server.close(()=>process.exit(1));
+})

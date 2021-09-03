@@ -8,10 +8,15 @@ import User from '../models/userModel.js'
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
 
+  if(!email || !password){
+    res.status(400).json({error:"Please provide email and password"})
+  }
+
+  try{
   const user = await User.findOne({ email })
 
   if (user && (await user.matchPassword(password))) {
-    res.json({
+    res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -19,9 +24,12 @@ const authUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     })
   } else {
-    res.status(401)
-    throw new Error('Invalid email or password')
+    res.status(401).json({message:'Invalid email or password'})
   }
+}
+catch(error){
+  res.status(500).json({error:error.message});
+}
 })
 
 // @desc    Register a new user
