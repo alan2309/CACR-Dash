@@ -1,13 +1,11 @@
-<<<<<<< HEAD
+
 import React, { useState } from "react";
-=======
+
 import React, { useState, useEffect } from "react";
->>>>>>> 5d8962a022c6c698d8bcc7ea7ea2f59e8982defb
 import "../CSS/SignIn.css";
 import { Link } from "react-router-dom";
 import "animate.css";
 
-<<<<<<< HEAD
 function Signin({ Login, error }) {
   const [details, setDetails] = useState({ email: "", password: "" });
 
@@ -45,7 +43,7 @@ function Signin({ Login, error }) {
         </form>
       </main>
     </div>
-=======
+
 function Signin({ Login, error, history }) {
   const [details, setDetails] = useState({ email: "", password: "" });
 
@@ -83,7 +81,6 @@ function Signin({ Login, error, history }) {
         </button>
       </form>
     </main>
->>>>>>> 5d8962a022c6c698d8bcc7ea7ea2f59e8982defb
   );
 }
 
