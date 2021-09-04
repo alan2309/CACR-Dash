@@ -27,7 +27,7 @@ const EditTitle = () => {
       const updateProgram = async (pid) => {
         let item = { title:title, description:description, image: "/images/img1.jpeg" };
         await axios
-          .put(`http://localhost:5000//api/projects/${pid}`, item)
+          .put(`http://localhost:5000/api/projects/${pid}`, item)
           .then((res) => {
             console.log(res.data);
           })

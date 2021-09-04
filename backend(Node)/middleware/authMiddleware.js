@@ -18,15 +18,12 @@ const protect = asyncHandler(async (req, res, next) => {
 
       next()
     } catch (error) {
-      console.error(error)
-      res.status(401)
-      throw new Error('Not authorized, token failed')
+      res.status(401).json({error:"Not authorized, token failed"})
     }
   }
 
   if (!token) {
-    res.status(401)
-    throw new Error('Not authorized, no token')
+    res.status(401).json({error:"Not authorized, token failed"})
   }
 })
 
@@ -34,8 +31,7 @@ const admin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next()
   } else {
-    res.status(401)
-    throw new Error('Not authorized as an admin')
+    res.status(401).json({error:"Not authorized as admin, token failed"})
   }
 }
 

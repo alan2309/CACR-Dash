@@ -13,6 +13,8 @@ import BarGraphAdmin from "./components/BarGraphAdmin";
 import PieChartAdmin from "./components/PieChartAdmin";
 import ProgressBarAdmin from "./components/ProgressBarAdmin";
 import EditTitle from "./components/EditTitle";
+import PrivateRoute from "./routing/PrivateRoute";
+import PrivateScreen from "./components/PrivateScreen";
 
 function App() {
   const [user, setUser] = useState({ email: "", password: "" });
@@ -21,15 +23,22 @@ function App() {
   const Login = (details) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-    axios.post("http://localhost:5000/api/users/login", {
-      email: details.email,
-      password: details.password
-    },config).then((res) => {
-      console.log(res.data);
-    });
+        "Content-Type": "application/json"
+      }
+    };
+    axios
+      .post(
+        "http://localhost:5000/api/users/login",
+        {
+          email: details.email,
+          password: details.password
+        },
+        config
+      )
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("authToken", res.data.token);
+      });
   };
 
   const Logout = () => {
@@ -41,6 +50,7 @@ function App() {
       <div className="App">
         <Navbar></Navbar>
         <Switch>
+          <PrivateRoute exact path="/private" component={PrivateScreen} />
           <Route path="/" exact render={(props) => <Programs />} />
           <Route
             path="/cacr"
@@ -52,7 +62,7 @@ function App() {
           <Route path="/programs" exact render={(props) => <Programs />} />
           <Route
             path="/admin/login"
-            render={(props) => <SignIn Login={Login} />}
+            render={({ history }) => <SignIn Login={Login} history={history} />}
           />
           <Route path="/programs/status/:id" render={(props) => <Statuses />} />
           <Route path="/programs/details/:id" render={(props) => <Details />} />
@@ -72,10 +82,10 @@ function App() {
             exact
             render={(props) => <ProgressBarAdmin />}
           />
-          <Route 
-          path="/admin/programs/:id/edit"
-          exact
-          render={(props) => <EditTitle/>}
+          <Route
+            path="/admin/programs/:id/edit"
+            exact
+            render={(props) => <EditTitle />}
           />
         </Switch>
       </div>
