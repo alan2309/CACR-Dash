@@ -6,7 +6,7 @@ import AdminProjects from "./AdminProjects";
 function Admin() {
   const [program, setProgram] = useState({
     title: "",
-    description: ""
+    description: "",
   });
   const [projects, setProjects] = useState([]);
 
@@ -37,13 +37,13 @@ function Admin() {
     <Redirect to="/admin/programs/graphs" />;
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
     const programData = {
       title: program.title,
       description: program.description,
-      image: "/images/img1.jpeg"
+      image: "/images/img1.jpeg",
     };
     await axios
       .post("http://localhost:5000/api/projects", programData, config)
@@ -58,30 +58,42 @@ function Admin() {
   return (
     <div className="createProgram container">
       <form onSubmit={submitHandler}>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Enter program title"
-          required
-          onChange={(e) => setProgram({ ...program, title: e.target.value })}
-          value={program.title}
-        />
-        <textarea
-          className="form-control"
-          placeholder="Enter program description"
-          required
-          onChange={(e) =>
-            setProgram({ ...program, description: e.target.value })
-          }
-          value={program.description}
-        ></textarea>
-        <input type="file" className="custom-file-input" id="customFile" />
-        <button className="w-100 btn btn-lg btn-primary" type="submit">
-          Create Program
-        </button>
+        <div class="animate__animated animate__zoomIn">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter program title"
+            required
+            onChange={(e) => setProgram({ ...program, title: e.target.value })}
+            value={program.title}
+          />
+        </div>
+        <div class="animate__animated animate__zoomIn">
+          <textarea
+            className="form-control"
+            placeholder="Enter program description"
+            required
+            onChange={(e) =>
+              setProgram({ ...program, description: e.target.value })
+            }
+            value={program.description}
+          ></textarea>
+        </div>
+        <div class="animate__animated animate__zoomIn">
+          <input type="file" className="custom-file-input" id="customFile" />
+        </div>
+        <div class="animate__animated animate__pulse">
+          <button className="w-100 btn btn-lg btn-primary" type="submit">
+            Create Program
+          </button>
+        </div>
       </form>
-      <h4>Existing Projects</h4>
-      <AdminProjects projects={projects} deleteHandler={deleteHandler} />
+      <div class="animate__animated animate__pulse">
+        <h4>Existing Projects</h4>
+      </div>
+      <div class="animate__animated animate__zoomIn">
+        <AdminProjects projects={projects} deleteHandler={deleteHandler} />
+      </div>
     </div>
   );
 }
