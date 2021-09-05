@@ -9,7 +9,7 @@ function ProjectCard(props) {
 const Program = (props) => {
   const { img, title, description, id } = props;
   return (
-    <div>
+    <div class="animate__animated animate__flash">
       <div className="col">
         <div className="card h-100 ">
           <Link to={`/programs/details/${id}`}>

@@ -5,6 +5,7 @@ import { Table } from "react-bootstrap";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import "animate.css";
 
 function BarGraphAdmin() {
   const id = useParams().id;
@@ -12,7 +13,7 @@ function BarGraphAdmin() {
   const [data, setData] = useState({
     label: "",
     before: null,
-    after: null
+    after: null,
   });
 
   const [cause, setCause] = useState("");
@@ -41,12 +42,12 @@ function BarGraphAdmin() {
     const newData = {
       label: data.label,
       before: data.before,
-      after: data.after
+      after: data.after,
     };
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
     await axios
       .post(`http://localhost:5000/api/projects/${id}/graph`, newData, config)
@@ -58,7 +59,7 @@ function BarGraphAdmin() {
     setData({
       label: "",
       before: null,
-      after: null
+      after: null,
     });
   };
   const editHandler = async (pid) => {
@@ -102,126 +103,146 @@ function BarGraphAdmin() {
 
   return (
     <div className="container">
-      <h4>Add Program Details</h4>
+      <h4 class="animate__animated animate__pulse">Add Program Details</h4>
       <div className="createGraphs">
-        <h4>Bar Graphs</h4>
+        <h4 class="animate__animated animate__pulse">Bar Graphs</h4>
         <form onSubmit={submitHandler}>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Enter a cause"
-            onChange={(e) => setData({ ...data, label: e.target.value })}
-            value={data.label}
-            required
-          />
-          <input
-            type="number"
-            min="0"
-            className="form-control"
-            placeholder="Before..."
-            onChange={(e) => setData({ ...data, before: e.target.value })}
-            value={data.before}
-            required
-          />
-          <input
-            type="number"
-            min="0"
-            className="form-control"
-            placeholder="After..."
-            onChange={(e) => setData({ ...data, after: e.target.value })}
-            value={data.after}
-            required
-          />
-          <button className="btn btn-lg btn-danger">Add</button>
+          <div class="animate__animated animate__zoomIn">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter a cause"
+              onChange={(e) => setData({ ...data, label: e.target.value })}
+              value={data.label}
+              required
+            />
+          </div>
+          <div class="animate__animated animate__zoomIn">
+            <input
+              type="number"
+              min="0"
+              className="form-control"
+              placeholder="Before..."
+              onChange={(e) => setData({ ...data, before: e.target.value })}
+              value={data.before}
+              required
+            />
+          </div>
+          <div class="animate__animated animate__zoomIn">
+            <input
+              type="number"
+              min="0"
+              className="form-control"
+              placeholder="After..."
+              onChange={(e) => setData({ ...data, after: e.target.value })}
+              value={data.after}
+              required
+            />
+          </div>
+          <div class="animate__animated animate__pulse">
+            <button className="btn btn-lg btn-danger">Add</button>
+          </div>
         </form>
       </div>
-      <Table striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Label</th>
-            <th>Before</th>
-            <th>After</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="edit">
-            <td>Changes</td>
-            <td>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter a cause"
-                value={cause}
-                onChange={(e) => {
-                  setCause(e.target.value);
-                }}
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Before..."
-                value={beforeVal}
-                onChange={(e) => {
-                  setBeforeVal(e.target.value);
-                }}
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="number"
-                className="form-control"
-                placeholder="After..."
-                value={afterVal}
-                onChange={(e) => {
-                  setAfterVal(e.target.value);
-                }}
-                required
-              />
-            </td>
-            <td>
-              <button
-                className="btn btn-lg btn-danger"
-                onClick={() => updateUser(idVal)}
-              >
-                Update
-              </button>
-            </td>
-          </tr>
-          {labels.map((label, index) => {
-            return (
-              <tr key={label._id}>
-                <td>{index + 1}</td>
-                <td>{label.label}</td>
-                <td>{label.before}</td>
-                <td>{label.after}</td>
-                <td>
+      <div class="animate__animated animate__zoomIn">
+        <Table striped bordered hover size="sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Label</th>
+              <th>Before</th>
+              <th>After</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="edit">
+              <td>Changes</td>
+              <td>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter a cause"
+                  value={cause}
+                  onChange={(e) => {
+                    setCause(e.target.value);
+                  }}
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Before..."
+                  value={beforeVal}
+                  onChange={(e) => {
+                    setBeforeVal(e.target.value);
+                  }}
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="After..."
+                  value={afterVal}
+                  onChange={(e) => {
+                    setAfterVal(e.target.value);
+                  }}
+                  required
+                />
+              </td>
+              <td>
+                <div class="animate__animated animate__pulse">
                   <button
-                    onClick={() => editHandler(label._id)}
-                    style={{ border: "none" }}
+                    className="btn btn-lg btn-danger"
+                    onClick={() => updateUser(idVal)}
                   >
-                    <FontAwesomeIcon style={{ color: "blue" }} icon={faEdit} />
+                    Update
                   </button>
-                  <button
-                    onClick={() => deleteHandler(label._id)}
-                    style={{ border: "none" }}
-                  >
-                    <FontAwesomeIcon style={{ color: "red" }} icon={faTrash} />
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-      <Link to={`/admin/programs/${id}/PieChart`}>
-        <button className="btn btn-lg btn-danger">Proceed</button>
-      </Link>
+                </div>
+              </td>
+            </tr>
+            {labels.map((label, index) => {
+              return (
+                <tr key={label._id}>
+                  <td>{index + 1}</td>
+                  <td>{label.label}</td>
+                  <td>{label.before}</td>
+                  <td>{label.after}</td>
+                  <td>
+                    <button
+                      onClick={() => editHandler(label._id)}
+                      style={{ border: "none" }}
+                    >
+                      <FontAwesomeIcon
+                        style={{ color: "blue" }}
+                        icon={faEdit}
+                      />
+                    </button>
+                    <button
+                      onClick={() => deleteHandler(label._id)}
+                      style={{ border: "none" }}
+                    >
+                      <FontAwesomeIcon
+                        style={{ color: "red" }}
+                        icon={faTrash}
+                      />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
+      <div class="animate__animated animate__pulse">
+        <Link to={`/admin/programs/${id}/PieChart`}>
+          <button className="btn btn-lg btn-danger">Proceed</button>
+        </Link>
+      </div>
     </div>
   );
 }

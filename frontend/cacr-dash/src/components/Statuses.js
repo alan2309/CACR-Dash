@@ -14,7 +14,9 @@ function Statuses() {
   }, []);
   return (
     <div className="container">
-      <h4>Program Completiton Status</h4>
+      <h4 class="animate__animated animate__pulse">
+        Program Completiton Status
+      </h4>
       <hr />
       {tasks.map((task) => {
         return (

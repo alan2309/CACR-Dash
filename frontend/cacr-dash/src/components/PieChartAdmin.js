@@ -5,19 +5,19 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import "animate.css";
 
 function PieChartAdmin() {
   const id = useParams().id;
   const [data, setData] = useState({
     label: "",
-    val: null
+    val: null,
   });
   const [labels, setLabels] = useState([]);
 
   const [cause, setCause] = useState("");
   const [value, setValue] = useState(null);
   const [idVal, setIdVal] = useState(null);
-
 
   useEffect(() => {
     const getLabels = async () => {
@@ -38,12 +38,12 @@ function PieChartAdmin() {
     e.preventDefault();
     const newData = {
       label: data.label,
-      value: data.val
+      value: data.val,
     };
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
     await axios
       .post(
@@ -58,7 +58,7 @@ function PieChartAdmin() {
       .catch((err) => console.log(err));
     setData({
       label: "",
-      val: null
+      val: null,
     });
   };
 
@@ -102,104 +102,122 @@ function PieChartAdmin() {
 
   return (
     <div className="container">
-      <h4>Add Program Details</h4>
+      <h4 class="animate__animated animate__pulse">Add Program Details</h4>
       <div className="createGraphs">
-        <h4>Pie Chart</h4>
+        <h4 class="animate__animated animate__pulse">Pie Chart</h4>
         <form onSubmit={submitHandler}>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Enter a cause"
-            onChange={(e) => setData({ ...data, label: e.target.value })}
-            value={data.label}
-            required
-          />
-          <input
-            type="number"
-            min="0"
-            className="form-control"
-            placeholder="Enter achieved target..."
-            id="val"
-            onChange={(e) => setData({ ...data, val: e.target.value })}
-            value={data.val}
-            required
-          />
-          <button className="btn btn-lg btn-danger">Add</button>
+          <div class="animate__animated animate__zoomIn">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter a cause"
+              onChange={(e) => setData({ ...data, label: e.target.value })}
+              value={data.label}
+              required
+            />
+          </div>
+          <div class="animate__animated animate__zoomIn">
+            <input
+              type="number"
+              min="0"
+              className="form-control"
+              placeholder="Enter achieved target..."
+              id="val"
+              onChange={(e) => setData({ ...data, val: e.target.value })}
+              value={data.val}
+              required
+            />
+          </div>
+          <div class="animate__animated animate__pulse">
+            <button className="btn btn-lg btn-danger">Add</button>
+          </div>
         </form>
       </div>
-      <Table striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Label</th>
-            <th>Value</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-        <tr className="edit">
-            <td>Changes</td>
-            <td>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter a cause"
-                value={cause}
-                onChange={(e) => {
-                  setCause(e.target.value);
-                }}
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Value..."
-                value={value}
-                onChange={(e) => {
-                  setValue(e.target.value);
-                }}
-                required
-              />
-            </td>
-            <td>
-              <button
-                className="btn btn-lg btn-danger"
-                onClick={() => updateUser(idVal)}
-              >
-                Update
-              </button>
-            </td>
-          </tr>
-          {labels.map((label, index) => {
-            return (
-              <tr key={label._id}>
-                <td>{index + 1}</td>
-                <td>{label.label}</td>
-                <td>{label.value}</td>
-                <td>
-                <button
-                    onClick={() => editHandler(label._id)}
-                    style={{ border: "none" }}
-                  >
-                    <FontAwesomeIcon style={{ color: "blue" }} icon={faEdit} />
-                  </button>
+      <div class="animate__animated animate__zoomIn">
+        <Table striped bordered hover size="sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Label</th>
+              <th>Value</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="edit">
+              <td>Changes</td>
+              <td>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter a cause"
+                  value={cause}
+                  onChange={(e) => {
+                    setCause(e.target.value);
+                  }}
+                  required
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Value..."
+                  value={value}
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
+                  required
+                />
+              </td>
+              <td>
+                <div class="animate__animated animate__pulse">
                   <button
-                    onClick={() => deleteHandler(label._id)}
-                    style={{ border: "none" }}
+                    className="btn btn-lg btn-danger"
+                    onClick={() => updateUser(idVal)}
                   >
-                    <FontAwesomeIcon style={{ color: "red" }} icon={faTrash} />
+                    Update
                   </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-      <Link to={`/admin/programs/${id}/Progress`}>
-        <button className="btn btn-lg btn-danger">Proceed</button>
-      </Link>
+                </div>
+              </td>
+            </tr>
+            {labels.map((label, index) => {
+              return (
+                <tr key={label._id}>
+                  <td>{index + 1}</td>
+                  <td>{label.label}</td>
+                  <td>{label.value}</td>
+                  <td>
+                    <button
+                      onClick={() => editHandler(label._id)}
+                      style={{ border: "none" }}
+                    >
+                      <FontAwesomeIcon
+                        style={{ color: "blue" }}
+                        icon={faEdit}
+                      />
+                    </button>
+                    <button
+                      onClick={() => deleteHandler(label._id)}
+                      style={{ border: "none" }}
+                    >
+                      <FontAwesomeIcon
+                        style={{ color: "red" }}
+                        icon={faTrash}
+                      />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
+      <div class="animate__animated animate__pulse">
+        <Link to={`/admin/programs/${id}/Progress`}>
+          <button className="btn btn-lg btn-danger">Proceed</button>
+        </Link>
+      </div>
     </div>
   );
 }
