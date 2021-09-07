@@ -23,15 +23,15 @@ function App() {
   const Login = (details) => {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
     axios
       .post(
         "http://localhost:5000/api/users/login",
         {
           email: details.email,
-          password: details.password
+          password: details.password,
         },
         config
       )
