@@ -54,10 +54,12 @@ function ProgressBarAdmin() {
       completed: data.completed,
       target: data.target,
     };
+    const token = localStorage.getItem("authToken");
     const config = {
       headers: {
         "Content-Type": "application/json",
-      },
+        Authorization: `Bearer ${token}`
+      }
     };
     await axios
       .post(`http://localhost:5000/api/projects/${id}/task`, newData, config)
@@ -73,8 +75,15 @@ function ProgressBarAdmin() {
     });
   };
   const deleteHandler = async (pid) => {
+    const token = localStorage.getItem("authToken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
     await axios
-      .delete(`http://localhost:5000/api/projects/${pid}/taskLabel`)
+      .delete(`http://localhost:5000/api/projects/${pid}/taskLabel`,config)
       .then((res) => {
         console.log(res);
         const labs = labels.filter((lab) => {
@@ -87,8 +96,15 @@ function ProgressBarAdmin() {
 
   const updateUser = async (pid) => {
     let item = { name, target, completed };
+    const token = localStorage.getItem("authToken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
     await axios
-      .put(`http://localhost:5000/api/projects/${pid}/taskLabel`, item)
+      .put(`http://localhost:5000/api/projects/${pid}/taskLabel`, item,config)
       .then((res) => {
         console.log(res.data);
         const labs = labels.filter((lab) => {

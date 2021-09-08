@@ -6,17 +6,16 @@ import AdminProjects from "./AdminProjects";
 function Admin() {
   const [program, setProgram] = useState({
     title: "",
-    description: "",
-    image: null,
+    description: ""
   });
   const [projects, setProjects] = useState([]);
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
   useEffect(() => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
     axios
       .get("http://localhost:5000/api/projects", config)
       .then((res) => {
@@ -25,14 +24,14 @@ function Admin() {
       .catch((err) => console.log(err));
   }, []);
 
-  const token = localStorage.getItem("authToken");
-  const config2 = {
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    }
-  };
   const deleteHandler = async (id) => {
+    const token = localStorage.getItem("authToken");
+    const config2 = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
     await axios
       .delete(`http://localhost:5000/api/projects/${id}`, config2)
       .then((res) => {
@@ -44,6 +43,7 @@ function Admin() {
       })
       .catch((err) => console.log(err));
   };
+
   const submitHandler = async (e) => {
     e.preventDefault();
     <Redirect to="/admin/programs/graphs" />;
@@ -51,13 +51,13 @@ function Admin() {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     };
     const programData = {
       title: program.title,
       description: program.description,
-      image: program.image,
+      image: "/images/img1.jpeg"
     };
     await axios
       .post("http://localhost:5000/api/projects", programData, config)
@@ -67,7 +67,7 @@ function Admin() {
       })
       .catch((err) => console.log(err));
 
-    setProgram({ title: "", description: "", image: null });
+    setProgram({ title: "", description: "" });
   };
   return (
     <div className="createProgram container">
@@ -94,14 +94,7 @@ function Admin() {
           ></textarea>
         </div>
         <div class="animate__animated animate__zoomIn">
-          <input
-            type="file"
-            className="custom-file-input"
-            id="customFile"
-            onChange={(e) =>
-              setProgram({ ...program, image: e.target.files[0] })
-            }
-          />
+          <input type="file" className="custom-file-input" id="customFile" />
         </div>
         <div class="animate__animated animate__pulse">
           <button className="w-100 btn btn-lg btn-primary" type="submit">

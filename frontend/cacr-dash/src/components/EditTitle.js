@@ -31,8 +31,15 @@ const EditTitle = () => {
       description: description,
       image: "/images/img1.jpeg",
     };
+    const token = localStorage.getItem("authToken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    };
     await axios
-      .put(`http://localhost:5000/api/projects/${pid}`, item)
+      .put(`http://localhost:5000/api/projects/${pid}`, item,config)
       .then((res) => {
         console.log(res.data);
       })

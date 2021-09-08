@@ -11,7 +11,7 @@ function PieChartAdmin() {
   const id = useParams().id;
   const [data, setData] = useState({
     label: "",
-    val: null,
+    val: null
   });
   const [labels, setLabels] = useState([]);
 
@@ -38,12 +38,14 @@ function PieChartAdmin() {
     e.preventDefault();
     const newData = {
       label: data.label,
-      value: data.val,
+      value: data.val
     };
+    const token = localStorage.getItem("authToken");
     const config = {
       headers: {
         "Content-Type": "application/json",
-      },
+        Authorization: `Bearer ${token}`
+      }
     };
     await axios
       .post(
@@ -58,7 +60,7 @@ function PieChartAdmin() {
       .catch((err) => console.log(err));
     setData({
       label: "",
-      val: null,
+      val: null
     });
   };
 
@@ -73,8 +75,15 @@ function PieChartAdmin() {
   };
 
   const deleteHandler = async (pid) => {
+    const token = localStorage.getItem("authToken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
     await axios
-      .delete(`http://localhost:5000/api/projects/${pid}/pieLabel`)
+      .delete(`http://localhost:5000/api/projects/${pid}/pieLabel`, config)
       .then((res) => {
         console.log(res);
         const labs = labels.filter((lab) => {

@@ -44,10 +44,12 @@ function BarGraphAdmin() {
       before: data.before,
       after: data.after,
     };
+    const token = localStorage.getItem("authToken");
     const config = {
       headers: {
         "Content-Type": "application/json",
-      },
+        Authorization: `Bearer ${token}`
+      }
     };
     await axios
       .post(`http://localhost:5000/api/projects/${id}/graph`, newData, config)
@@ -74,8 +76,15 @@ function BarGraphAdmin() {
   };
 
   const deleteHandler = async (pid) => {
+    const token = localStorage.getItem("authToken");
+    const config2 = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
     await axios
-      .delete(`http://localhost:5000/api/projects/${pid}/graphLabel`)
+      .delete(`http://localhost:5000/api/projects/${pid}/graphLabel`,config2)
       .then((res) => {
         console.log(res);
         const labs = labels.filter((lab) => {
@@ -88,8 +97,15 @@ function BarGraphAdmin() {
 
   const updateUser = async (pid) => {
     let item = { cause, beforeVal, afterVal };
+    const token = localStorage.getItem("authToken");
+    const config2 = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
     await axios
-      .put(`http://localhost:5000/api/projects/${pid}/graphLabel`, item)
+      .put(`http://localhost:5000/api/projects/${pid}/graphLabel`, item,config2)
       .then((res) => {
         console.log(res.data);
         const labs = labels.filter((lab) => {
