@@ -6,7 +6,8 @@ import AdminProjects from "./AdminProjects";
 function Admin() {
   const [program, setProgram] = useState({
     title: "",
-    description: ""
+    description: "",
+    image: null,
   });
   const [projects, setProjects] = useState([]);
 
@@ -46,15 +47,17 @@ function Admin() {
   const submitHandler = async (e) => {
     e.preventDefault();
     <Redirect to="/admin/programs/graphs" />;
+    const token = localStorage.getItem("authToken");
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`,
+      },
     };
     const programData = {
       title: program.title,
       description: program.description,
-      image: "/images/img1.jpeg"
+      image: program.image,
     };
     await axios
       .post("http://localhost:5000/api/projects", programData, config)
@@ -64,7 +67,7 @@ function Admin() {
       })
       .catch((err) => console.log(err));
 
-    setProgram({ title: "", description: "" });
+    setProgram({ title: "", description: "", image: null });
   };
   return (
     <div className="createProgram container">
@@ -91,7 +94,14 @@ function Admin() {
           ></textarea>
         </div>
         <div class="animate__animated animate__zoomIn">
-          <input type="file" className="custom-file-input" id="customFile" />
+          <input
+            type="file"
+            className="custom-file-input"
+            id="customFile"
+            onChange={(e) =>
+              setProgram({ ...program, image: e.target.files[0] })
+            }
+          />
         </div>
         <div class="animate__animated animate__pulse">
           <button className="w-100 btn btn-lg btn-primary" type="submit">
