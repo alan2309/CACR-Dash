@@ -6,7 +6,7 @@ import Statuses from "./components/Statuses";
 import Programs from "./components/Programs";
 import Details from "./components/Details";
 import Admin from "./components/Admin";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import BarGraphAdmin from "./components/BarGraphAdmin";
@@ -16,38 +16,46 @@ import EditTitle from "./components/EditTitle";
 import PrivateRoute from "./routing/PrivateRoute";
 
 function App() {
-  const [user, setUser] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [isLogged, setIsLogged] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("authToken")) {
+      setIsLogged(true);
+    }
+  }, []);
 
   const Login = (details) => {
     const config = {
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     };
     axios
       .post(
         "http://localhost:5000/api/users/login",
         {
           email: details.email,
-          password: details.password,
+          password: details.password
         },
         config
       )
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("authToken", res.data.token);
+        setIsLogged(true);
       });
   };
 
   const Logout = () => {
-    console.log("Logged out.");
+    localStorage.removeItem("authToken");
+    setIsLogged(false);
   };
 
   return (
     <Router>
       <div className="App">
-        <Navbar></Navbar>
+        <Navbar Logout={Logout} isLogged={isLogged} />
         <Switch>
           <Route path="/" exact render={(props) => <Programs />} />
           <Route

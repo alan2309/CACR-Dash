@@ -3,14 +3,7 @@ import "../CSS/Navbar.css";
 import logo from "../logo.png";
 import { Link } from "react-router-dom";
 
-function Navbar() {
-  const [logout, setLogout] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem("authToken")) {
-      setLogout(true);
-    }
-  });
+function Navbar({ Logout, isLogged }) {
   return (
     <nav className="navbar navbar-expand-md mb-4">
       <div className="container-fluid">
@@ -52,11 +45,10 @@ function Navbar() {
             </Link>
           </ul>
         </div>
-        {logout && (
+        {isLogged && (
           <button
             onClick={() => {
-              localStorage.removeItem("authToken");
-              setLogout(false);
+              Logout();
             }}
           >
             logout
