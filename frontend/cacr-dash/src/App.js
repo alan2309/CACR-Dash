@@ -72,22 +72,22 @@ function App() {
           <PrivateRoute
             path="/admin/programs/:id/graphs"
             exact
-            render={(props) => <BarGraphAdmin />}
+            component={(props) => <BarGraphAdmin />}
           />
           <PrivateRoute
             path="/admin/programs/:id/PieChart"
             exact
-            render={(props) => <PieChartAdmin />}
+            component={(props) => <PieChartAdmin />}
           />
           <PrivateRoute
             path="/admin/programs/:id/Progress"
             exact
-            render={(props) => <ProgressBarAdmin />}
+            component={(props) => <ProgressBarAdmin />}
           />
           <PrivateRoute
             path="/admin/programs/:id/edit"
             exact
-            render={(props) => <EditTitle />}
+            component={(props) => <EditTitle />}
           />
         </Switch>
       </div>

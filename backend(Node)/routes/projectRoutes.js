@@ -29,7 +29,6 @@ const router = express.Router();
 router.route('/')
 .post(protect,createProject)
 .get(getProjects)
-router.route("/").post(createProject).get(getProjects);
 
 router
   .route("/:id")
@@ -59,32 +58,13 @@ router.route('/:id/graphLabel')
 router.route('/:id/PieChart')
 .get(getPie)
 .post(protect,createPie)
-  .delete(deleteProject)
-  .put(updateProject);
-
-router.route("/:id/task").post(createTask).get(getTasks);
-
-router
-  .route("/:id/taskLabel")
-  .get(getTaskById)
-  .put(updateTask)
-  .delete(deleteTask);
-
-router.route("/:id/graph").get(getLabels).post(createGraph);
-
-router
-  .route("/:id/graphLabel")
-  .get(getLabelById)
-  .put(updateGraph)
-  .delete(deleteLabel);
-
-router.route("/:id/PieChart").get(getPie).post(createPie);
+  .delete(protect,deleteProject)
+  .put(protect,updateProject);
 
 router.route('/:id/pieLabel')
 .get(protect,getPieById)
 .delete(protect,deletePie)  
 .put(protect,updatePie)
 
-router.route("/:id/pieLabel").get(getPieById).delete(deletePie).put(updatePie);
 
 export default router;
