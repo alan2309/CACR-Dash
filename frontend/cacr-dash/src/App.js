@@ -14,7 +14,6 @@ import PieChartAdmin from "./components/PieChartAdmin";
 import ProgressBarAdmin from "./components/ProgressBarAdmin";
 import EditTitle from "./components/EditTitle";
 import PrivateRoute from "./routing/PrivateRoute";
-import PrivateScreen from "./components/PrivateScreen";
 
 function App() {
   const [user, setUser] = useState({ email: "", password: "" });
@@ -50,7 +49,6 @@ function App() {
       <div className="App">
         <Navbar></Navbar>
         <Switch>
-          <PrivateRoute exact path="/private" component={PrivateScreen} />
           <Route path="/" exact render={(props) => <Programs />} />
           <Route
             path="/cacr"
@@ -66,23 +64,27 @@ function App() {
           />
           <Route path="/programs/status/:id" render={(props) => <Statuses />} />
           <Route path="/programs/details/:id" render={(props) => <Details />} />
-          <Route path="/admin/programs/" exact render={(props) => <Admin />} />
-          <Route
+          <PrivateRoute
+            path="/admin/programs/"
+            exact
+            component={(props) => <Admin />}
+          />
+          <PrivateRoute
             path="/admin/programs/:id/graphs"
             exact
             render={(props) => <BarGraphAdmin />}
           />
-          <Route
+          <PrivateRoute
             path="/admin/programs/:id/PieChart"
             exact
             render={(props) => <PieChartAdmin />}
           />
-          <Route
+          <PrivateRoute
             path="/admin/programs/:id/Progress"
             exact
             render={(props) => <ProgressBarAdmin />}
           />
-          <Route
+          <PrivateRoute
             path="/admin/programs/:id/edit"
             exact
             render={(props) => <EditTitle />}

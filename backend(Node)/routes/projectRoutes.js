@@ -18,41 +18,41 @@ import {
 const router = express.Router();
 
 router.route('/')
-.post(createProject)
+.post(protect,createProject)
 .get(getProjects)
 
 router.route('/:id')
   .get(getProjectById)
-  .delete(deleteProject)
-  .put(updateProject)
+  .delete(protect,deleteProject)
+  .put(protect,updateProject)
   
 router.route('/:id/task')
-  .post(createTask)
+  .post(protect,createTask)
   .get(getTasks)
  
 router.route('/:id/taskLabel')
   .get(getTaskById)
-  .put(updateTask)
-  .delete(deleteTask)
+  .put(protect,updateTask)
+  .delete(protect,deleteTask)
  
 router.route('/:id/graph')
 .get(getLabels)
-.post(createGraph)
+.post(protect,createGraph)
  
 
 router.route('/:id/graphLabel')
-.get(getLabelById)
-.put(updateGraph) 
-.delete(deleteLabel)
+.get(protect,getLabelById)
+.put(protect,updateGraph) 
+.delete(protect,deleteLabel)
 
 router.route('/:id/PieChart')
 .get(getPie)
-.post(createPie)
+.post(protect,createPie)
 
 
 router.route('/:id/pieLabel')
-.get(getPieById)
-.delete(deletePie)  
-.put(updatePie)
+.get(protect,getPieById)
+.delete(protect,deletePie)  
+.put(protect,updatePie)
 
 export default router;

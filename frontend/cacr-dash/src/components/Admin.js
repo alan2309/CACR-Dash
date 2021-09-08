@@ -6,22 +6,34 @@ import AdminProjects from "./AdminProjects";
 function Admin() {
   const [program, setProgram] = useState({
     title: "",
-    description: "",
+    description: ""
   });
   const [projects, setProjects] = useState([]);
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/projects")
+      .get("http://localhost:5000/api/projects", config)
       .then((res) => {
         setProjects(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
 
+  const token = localStorage.getItem("authToken");
+  const config2 = {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  };
   const deleteHandler = async (id) => {
     await axios
-      .delete(`http://localhost:5000/api/projects/${id}`)
+      .delete(`http://localhost:5000/api/projects/${id}`, config2)
       .then((res) => {
         console.log(res);
         const projs = projects.filter((proj) => {
@@ -31,19 +43,18 @@ function Admin() {
       })
       .catch((err) => console.log(err));
   };
-
   const submitHandler = async (e) => {
     e.preventDefault();
     <Redirect to="/admin/programs/graphs" />;
     const config = {
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     };
     const programData = {
       title: program.title,
       description: program.description,
-      image: "/images/img1.jpeg",
+      image: "/images/img1.jpeg"
     };
     await axios
       .post("http://localhost:5000/api/projects", programData, config)
