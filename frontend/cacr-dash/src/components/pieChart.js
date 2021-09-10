@@ -67,7 +67,7 @@ function PieChart() {
               fontStyle: "Arial", 
               sidePadding: 20, 
               minFontSize: 20,
-              lineHeight: 25 
+              lineHeight: 40 
             }
           }
         }}
