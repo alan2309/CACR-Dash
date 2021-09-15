@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button, Table } from "react-bootstrap";
 import "../CSS/AdminProjects.css";
 
-const AdminProjects = ({ projects, deleteHandler }) => {
+const AdminProjects = ({ projects, popupYes, setProjId }) => {
   return (
     <>
       <Table striped bordered hover size="sm">
@@ -23,17 +23,27 @@ const AdminProjects = ({ projects, deleteHandler }) => {
                 <td>
                   <Link to={`/admin/programs/${proj._id}/edit`}>
                     <button className="btn btn-sm btn-danger updel">
-                    <FontAwesomeIcon style={{ color: "blue" }} icon={faEdit} />
+                      <FontAwesomeIcon
+                        style={{ color: "blue" }}
+                        icon={faEdit}
+                      />
                     </button>
                   </Link>
                 </td>
                 <td>
-                <button
-                  className="btn btn-sm btn-danger updel"
-                  onClick={() => deleteHandler(proj._id)}
-                >
-                  <FontAwesomeIcon style={{ color: "red" }} icon={faTrash} value={proj._id} />
-                </button>
+                  <button
+                    className="btn btn-sm btn-danger updel"
+                    onClick={() => {
+                      popupYes();
+                      setProjId(proj._id);
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      style={{ color: "red" }}
+                      icon={faTrash}
+                      value={proj._id}
+                    />
+                  </button>
                 </td>
               </tr>
             );
