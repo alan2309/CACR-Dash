@@ -115,7 +115,6 @@ function PieChartAdmin() {
       <div className="createGraphs">
         <h4 class="animate__animated animate__pulse">Pie Chart</h4>
         <form onSubmit={submitHandler}>
-          <div class="animate__animated animate__zoomIn">
             <input
               type="text"
               className="form-control"
@@ -124,8 +123,6 @@ function PieChartAdmin() {
               value={data.label}
               required
             />
-          </div>
-          <div class="animate__animated animate__zoomIn">
             <input
               type="number"
               min="0"
@@ -136,7 +133,6 @@ function PieChartAdmin() {
               value={data.val}
               required
             />
-          </div>
           <div class="animate__animated animate__pulse">
             <button className="btn btn-lg btn-danger">Add</button>
           </div>

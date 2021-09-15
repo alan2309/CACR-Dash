@@ -46,12 +46,12 @@ function Navbar({ Logout, isLogged }) {
           </ul>
         </div>
         {isLogged && (
-          <button
+          <button className="btn btn-lg btn-danger"
             onClick={() => {
               Logout();
             }}
           >
-            logout
+            Logout
           </button>
         )}
       </div>

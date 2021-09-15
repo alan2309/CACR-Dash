@@ -151,28 +151,25 @@ function Admin() {
         />
       </div>
       {popup && (
-        <div
+        <div class="animate__animated animate__slideInDown alert alert-light" role="alert"
           style={{
-            backgroundColor: "green",
-            height: "130px",
-            width: "250px",
             position: "absolute",
-            top: "10%",
-            left: "50%",
+            top: "8%",
+            left: "40%"
           }}
         >
-          <p>Are you sure you want to delete</p>
-          <button
-            class="btn btn-danger"
+          <p>Are you sure you want to delete entry?</p>
+          <button class="btn-danger"
             onClick={() => {
               deleteHandler(projId);
               popupNo();
             }}
           >
-            yes
+            YES
           </button>
-          <button class="btn btn-success" onClick={popupNo}>
-            no
+          <button class="btn-success"
+          onClick={popupNo}>
+            NO
           </button>
         </div>
       )}

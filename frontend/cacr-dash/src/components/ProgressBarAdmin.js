@@ -122,7 +122,6 @@ function ProgressBarAdmin() {
       <div className="createGraphs">
         <h4 class="animate__animated animate__pulse">Progress Bars</h4>
         <form onSubmit={submitHandler}>
-          <div class="animate__animated animate__zoomIn">
             <input
               type="text"
               className="form-control"
@@ -131,8 +130,6 @@ function ProgressBarAdmin() {
               value={data.name}
               required
             />
-          </div>
-          <div class="animate__animated animate__zoomIn">
             <input
               type="number"
               min="1"
@@ -142,8 +139,6 @@ function ProgressBarAdmin() {
               value={data.target}
               required
             />
-          </div>
-          <div class="animate__animated animate__zoomIn">
             <input
               type="number"
               min="0"
@@ -153,7 +148,6 @@ function ProgressBarAdmin() {
               value={data.completed}
               required
             />
-          </div>
           <div class="animate__animated animate__pulse">
             <button className="btn btn-lg btn-danger">Add</button>
           </div>
