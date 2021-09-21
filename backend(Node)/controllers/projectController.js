@@ -50,8 +50,25 @@ const createProject = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const deleteProject = asyncHandler(async (req, res) => {
   const project = await Project.findById(req.params.id)
-
+  const tasks = await Task.find({"project":req.params.id})
+  const labels = await Graph.find({"project":req.params.id})
+  const pieLabel = await Pie.find({"project":req.params.id})
   if (project) {
+    if(tasks){
+      for(let i=0;i<tasks.length;i++){
+      await tasks[i].remove()
+      }
+    }
+    if(labels){
+      for(let i=0;i<labels.length;i++){
+      await labels.remove()
+      }
+    }
+    if(pieLabel){
+      for(let i=0;i<pieLabel.length;i++){
+      await pieLabel.remove()
+      }
+    }
     await project.remove()
     res.json({ message: 'Project removed' })
   } else {
