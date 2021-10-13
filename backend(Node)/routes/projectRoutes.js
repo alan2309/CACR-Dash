@@ -24,8 +24,10 @@ import {
   getPieById,
 } from "../controllers/projectController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 import multer from "multer";
+
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: function(req,file,cb){
@@ -35,7 +37,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage:storage});
 
-router.post("/",upload.single("image"),(req, res) => {
+router.post("/",protect,upload.single("image"),async (req, res) => {
   const { title,description } = req.body
   const project = new Project({
     title: title,
@@ -43,18 +45,34 @@ router.post("/",upload.single("image"),(req, res) => {
     description: description,
   })
 
-  const createdProject = project.save()
+  const createdProject = await project.save()
   res.status(201).json(createdProject)
 })
 
 router.route('/')
 .get(getProjects)
 
+router.put("/:id",protect,upload.single("image"),async (req, res) => {
+  const project = await Project.findById(req.params.id)
+  const {
+    title,
+    description
+  } = req.body
+  if (project) {
+    project.title = title
+    project.description = description
+    project.image = `/images/${req.file.originalname}`
+    const updatedProject = await project.save()
+    res.json(updatedProject)
+  } else {
+    res.status(404)
+    throw new Error('Project not found')
+  }
+})
 router
   .route("/:id")
   .get(getProjectById)
   .delete(protect,deleteProject)
-  .put(protect,updateProject)
   
 router.route('/:id/task')
   .post(protect,createTask)

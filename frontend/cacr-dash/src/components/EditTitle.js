@@ -9,6 +9,7 @@ const EditTitle = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [idVal, setIdVal] = useState(null);
+  const [imagee, setImage] = useState();
 
   useEffect(() => {
     const getLabels = async () => {
@@ -25,24 +26,28 @@ const EditTitle = () => {
   }, []);
 
   const updateProgram = async (pid) => {
-    let item = {
-      title: title,
-      description: description,
-      image: "/images/img1.jpeg",
-    };
+    let form_data = new FormData();
+    form_data.append('image', imagee, imagee.name);
+    form_data.append('title', title);
+    form_data.append('description', description);
     const token = localStorage.getItem("authToken");
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data'",
         "Authorization": `Bearer ${token}`
       }
     };
     await axios
-      .put(`http://localhost:5000/api/projects/${pid}`, item,config)
+      .put(`http://localhost:5000/api/projects/${pid}`, form_data,config)
       .then((res) => {
       })
       .catch((err) => console.log(err));
   };
+
+  function uploadFileHandler(e){
+    setImage(e.target.files[0])
+
+  }
 
   return (
     <div className="createProgram container">
@@ -71,7 +76,9 @@ const EditTitle = () => {
           ></textarea>
         </div>
         <div className="animate__animated animate__zoomIn">
-          <input type="file" className="custom-file-input" id="customFile" />
+        <input type="file"
+                   id="image"
+                   accept="image/png, image/jpeg,image/jpg"  onChange={uploadFileHandler} required/>
         </div>
         <div className="animate__animated animate__pulse">
           <button

@@ -107,7 +107,7 @@ function Admin() {
         
                     <input type="file"
                    id="image"
-                   accept="image/png, image/jpeg"  onChange={uploadFileHandler} required/>
+                   accept="image/png, image/jpeg,image/jpg"  onChange={uploadFileHandler} required/>
         <div className="animate__animated animate__pulse">
           <button className="w-100 btn btn-lg btn-primary" type="submit">
             Create Program
