@@ -12,7 +12,6 @@ function Admin() {
   const [projects, setProjects] = useState([]);
   const [popup, setPopup] = useState(false);
   const [projId, setProjId] = useState("");
-  const [uploading, setUploading] = useState(false);
   const [imagee, setImage] = useState();
 
   useEffect(() => {
@@ -53,53 +52,26 @@ function Admin() {
       .catch((err) => console.log(err));
   };
   function uploadFileHandler(e){
-    alert('hh')
-    console.log(e)
     setImage(e.target.files[0])
 
   }
 
-  /*const uploadFileHandler = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("image", file);
-    setUploading(true);
-
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      };
-      const { data } = await axios.post("/api/upload".formData, config);
-
-      setImage(data);
-      setUploading(false);
-    } catch (error) {
-      console.error(error);
-      setUploading(false);
-    }
-  };*/
-
   const submitHandler = async (e) => {
     e.preventDefault();
     <Redirect to="/admin/programs/graphs" />;
+    let form_data = new FormData();
+    form_data.append('image', imagee, imagee.name);
+    form_data.append('title', program.title);
+    form_data.append('description', program.description);
     const token = localStorage.getItem("authToken");
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data'",
         Authorization: `Bearer ${token}`,
       },
     };
-    const programData = {
-      title: program.title,
-      description: program.description,
-      image: imagee,
-    };
-    alert('p')
-    console.log(programData)
     await axios
-      .post("http://localhost:5000/api/projects", programData, config)
+      .post("http://localhost:5000/api/projects", form_data, config)
       .then((res) => {
         setProjects([res.data, ...projects]);
       })

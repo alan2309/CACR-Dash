@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage:storage});
 
-router.post("/",upload.single("projectImage"),(req, res) => {
+router.post("/",upload.single("image"),(req, res) => {
   const { title,description } = req.body
   const project = new Project({
     title: title,
