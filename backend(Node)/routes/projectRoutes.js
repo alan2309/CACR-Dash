@@ -25,9 +25,29 @@ import {
 } from "../controllers/projectController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 const router = express.Router();
+import multer from "multer";
+const storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: function(req,file,cb){
+    return cb(null,`${file.originalname}`);
+  }
+});
+
+const upload = multer({storage:storage});
+
+router.post("/",upload.single("projectImage"),(req, res) => {
+  const { title,description } = req.body
+  const project = new Project({
+    title: title,
+    image: `/images/${req.file.originalname}`,
+    description: description,
+  })
+
+  const createdProject = project.save()
+  res.status(201).json(createdProject)
+})
 
 router.route('/')
-.post(protect,createProject)
 .get(getProjects)
 
 router

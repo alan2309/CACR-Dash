@@ -2,7 +2,6 @@ import React, { useState, useEffect, Redirect } from "react";
 import axios from "axios";
 import "../CSS/Admin.css";
 import AdminProjects from "./AdminProjects";
-import { Form } from "react-bootstrap";
 
 function Admin() {
   const [program, setProgram] = useState({
