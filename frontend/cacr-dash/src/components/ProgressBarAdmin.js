@@ -37,8 +37,15 @@ function ProgressBarAdmin() {
   }, []);
 
   const editHandler = async (pid) => {
+    const token = localStorage.getItem("authToken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
     await axios
-      .get(`http://localhost:5000/api/projects/${pid}/taskLabel`)
+      .get(`http://localhost:5000/api/projects/${pid}/taskLabel`,config)
       .then((res) => {
         setIdVal(pid);
         setName(res.data.name);
@@ -64,7 +71,6 @@ function ProgressBarAdmin() {
     await axios
       .post(`http://localhost:5000/api/projects/${id}/task`, newData, config)
       .then((res) => {
-        console.log(res.data);
         setLabels([res.data, ...labels]);
       })
       .catch((err) => console.log(err));
@@ -85,7 +91,6 @@ function ProgressBarAdmin() {
     await axios
       .delete(`http://localhost:5000/api/projects/${pid}/taskLabel`,config)
       .then((res) => {
-        console.log(res);
         const labs = labels.filter((lab) => {
           return lab._id !== pid;
         });
@@ -106,7 +111,6 @@ function ProgressBarAdmin() {
     await axios
       .put(`http://localhost:5000/api/projects/${pid}/taskLabel`, item,config)
       .then((res) => {
-        console.log(res.data);
         const labs = labels.filter((lab) => {
           return lab._id !== res.data._id;
         });
@@ -118,9 +122,9 @@ function ProgressBarAdmin() {
 
   return (
     <div className="container">
-      <h4 class="animate__animated animate__pulse">Add Program Details</h4>
+      <h4 className="animate__animated animate__pulse">Add Program Details</h4>
       <div className="createGraphs">
-        <h4 class="animate__animated animate__pulse">Progress Bars</h4>
+        <h4 className="animate__animated animate__pulse">Progress Bars</h4>
         <form onSubmit={submitHandler}>
             <input
               type="text"
@@ -148,12 +152,12 @@ function ProgressBarAdmin() {
               value={data.completed}
               required
             />
-          <div class="animate__animated animate__pulse">
+          <div className="animate__animated animate__pulse">
             <button className="btn btn-lg btn-danger">Add</button>
           </div>
         </form>
       </div>
-      <div class="animate__animated animate__zoomIn">
+      <div className="animate__animated animate__zoomIn">
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
@@ -251,7 +255,7 @@ function ProgressBarAdmin() {
           </tbody>
         </Table>
       </div>
-      <div class="animate__animated animate__pulse">
+      <div className="animate__animated animate__pulse">
         <Link to={`/admin/programs`}>
           <button className="btn btn-lg btn-danger">Finish</button>
         </Link>

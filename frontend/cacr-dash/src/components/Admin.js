@@ -46,7 +46,6 @@ function Admin() {
     await axios
       .delete(`http://localhost:5000/api/projects/${id}`, config2)
       .then((res) => {
-        console.log(res);
         const projs = projects.filter((proj) => {
           return proj._id !== id;
         });
@@ -95,7 +94,6 @@ function Admin() {
     await axios
       .post("http://localhost:5000/api/projects", programData, config)
       .then((res) => {
-        console.log(res);
         setProjects([res.data, ...projects]);
       })
       .catch((err) => console.log(err));
@@ -105,7 +103,7 @@ function Admin() {
   return (
     <div className="createProgram container">
       <form onSubmit={submitHandler}>
-        <div class="animate__animated animate__zoomIn">
+        <div className="animate__animated animate__zoomIn">
           <input
             type="text"
             className="form-control"
@@ -115,7 +113,7 @@ function Admin() {
             value={program.title}
           />
         </div>
-        <div class="animate__animated animate__zoomIn">
+        <div className="animate__animated animate__zoomIn">
           <textarea
             className="form-control"
             placeholder="Enter program description"
@@ -126,6 +124,9 @@ function Admin() {
             value={program.description}
           ></textarea>
         </div>
+
+            {/* image input  */}
+
         {/* <div class="animate__animated animate__zoomIn">
           <Form.File
             id="image-file"
@@ -134,16 +135,16 @@ function Admin() {
             onChange={uploadFileHandler}
           ></Form.File>
         </div> */}
-        <div class="animate__animated animate__pulse">
+        <div className="animate__animated animate__pulse">
           <button className="w-100 btn btn-lg btn-primary" type="submit">
             Create Program
           </button>
         </div>
       </form>
-      <div class="animate__animated animate__pulse">
+      <div className="animate__animated animate__pulse">
         <h4>Existing Projects</h4>
       </div>
-      <div class="animate__animated animate__zoomIn">
+      <div className="animate__animated animate__zoomIn">
         <AdminProjects
           projects={projects}
           popupYes={popupYes}
@@ -151,7 +152,7 @@ function Admin() {
         />
       </div>
       {popup && (
-        <div class="animate__animated animate__slideInDown alert alert-light" role="alert"
+        <div className="animate__animated animate__slideInDown alert alert-light" role="alert"
           style={{
             position: "absolute",
             top: "8%",
@@ -159,7 +160,7 @@ function Admin() {
           }}
         >
           <p>Are you sure you want to delete entry?</p>
-          <button class="btn-danger"
+          <button className="btn-danger"
             onClick={() => {
               deleteHandler(projId);
               popupNo();
@@ -167,7 +168,7 @@ function Admin() {
           >
             YES
           </button>
-          <button class="btn-success"
+          <button className="btn-success"
           onClick={popupNo}>
             NO
           </button>

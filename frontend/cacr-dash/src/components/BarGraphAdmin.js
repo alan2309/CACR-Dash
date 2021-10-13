@@ -12,8 +12,8 @@ function BarGraphAdmin() {
   const [labels, setLabels] = useState([]);
   const [data, setData] = useState({
     label: "",
-    before: null,
-    after: null,
+    before: "",
+    after: "",
   });
 
   const [cause, setCause] = useState("");
@@ -39,6 +39,8 @@ function BarGraphAdmin() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    if(data.label === "" || data.after === "" || data.before === ""){return}
+    if(isNaN(data.before) ||isNaN(data.after) ){return}
     const newData = {
       label: data.label,
       before: data.before,
@@ -54,19 +56,25 @@ function BarGraphAdmin() {
     await axios
       .post(`http://localhost:5000/api/projects/${id}/graph`, newData, config)
       .then((res) => {
-        console.log(res.data);
         setLabels([res.data, ...labels]);
       })
       .catch((err) => console.log(err));
     setData({
       label: "",
-      before: null,
-      after: null,
+      before: "",
+      after: "",
     });
   };
   const editHandler = async (pid) => {
+    const token = localStorage.getItem("authToken");
+    const config2 = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
     await axios
-      .get(`http://localhost:5000/api/projects/${pid}/graphLabel`)
+      .get(`http://localhost:5000/api/projects/${pid}/graphLabel`,config2)
       .then((res) => {
         setIdVal(pid);
         setCause(res.data.label);
@@ -86,7 +94,6 @@ function BarGraphAdmin() {
     await axios
       .delete(`http://localhost:5000/api/projects/${pid}/graphLabel`,config2)
       .then((res) => {
-        console.log(res);
         const labs = labels.filter((lab) => {
           return lab._id !== pid;
         });
@@ -107,7 +114,6 @@ function BarGraphAdmin() {
     await axios
       .put(`http://localhost:5000/api/projects/${pid}/graphLabel`, item,config2)
       .then((res) => {
-        console.log(res.data);
         const labs = labels.filter((lab) => {
           return lab._id !== res.data._id;
         });
@@ -119,12 +125,12 @@ function BarGraphAdmin() {
 
   return (
     <div className="container">
-      <h4 class="animate__animated animate__pulse">Add Program Details</h4>
+      <h4 className="animate__animated animate__pulse">Add Program Details</h4>
       <div className="createGraphs">
-        <h4 class="animate__animated animate__pulse">Bar Graphs</h4>
+        <h4 className="animate__animated animate__pulse">Bar Graphs</h4>
         <form onSubmit={submitHandler}>
             <input
-              class="animate__animated animate__zoomIn"
+              className="animate__animated animate__zoomIn"
               type="text"
               className="form-control"
               placeholder="Enter a cause"
@@ -133,9 +139,9 @@ function BarGraphAdmin() {
               required
             />
             <input
-              class="animate__animated animate__zoomIn"
-              type="number"
-              min="0"
+            style={{width:"100px"}}
+              className="animate__animated animate__zoomIn"
+              type="text"
               className="form-control"
               placeholder="Before..."
               onChange={(e) => setData({ ...data, before: e.target.value })}
@@ -143,21 +149,21 @@ function BarGraphAdmin() {
               required
             />
             <input
-              class="animate__animated animate__zoomIn"
-              type="number"
-              min="0"
+            style={{width:"100px"}}
+              className="animate__animated animate__zoomIn"
+              type="text"
               className="form-control"
               placeholder="After..."
               onChange={(e) => setData({ ...data, after: e.target.value })}
               value={data.after}
               required
             />
-          <div class="animate__animated animate__pulse">
+          <div className="animate__animated animate__pulse">
             <button className="btn btn-lg btn-danger">Add</button>
           </div>
         </form>
       </div>
-      <div class="animate__animated animate__zoomIn">
+      <div className="animate__animated animate__zoomIn">
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
@@ -208,7 +214,7 @@ function BarGraphAdmin() {
                 />
               </td>
               <td>
-                <div class="animate__animated animate__pulse">
+                <div className="animate__animated animate__pulse">
                   <button
                     className="btn btn-lg btn-danger"
                     onClick={() => updateUser(idVal)}
@@ -251,7 +257,7 @@ function BarGraphAdmin() {
           </tbody>
         </Table>
       </div>
-      <div class="animate__animated animate__pulse">
+      <div className="animate__animated animate__pulse">
         <Link to={`/admin/programs/${id}/PieChart`}>
           <button className="btn btn-lg btn-danger">Proceed</button>
         </Link>

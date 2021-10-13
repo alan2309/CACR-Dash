@@ -16,7 +16,6 @@ import EditTitle from "./components/EditTitle";
 import PrivateRoute from "./routing/PrivateRoute";
 
 function App() {
-  const [error, setError] = useState("");
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {

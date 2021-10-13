@@ -61,12 +61,12 @@ const deleteProject = asyncHandler(async (req, res) => {
     }
     if(labels){
       for(let i=0;i<labels.length;i++){
-      await labels.remove()
+      await labels[i].remove()
       }
     }
     if(pieLabel){
       for(let i=0;i<pieLabel.length;i++){
-      await pieLabel.remove()
+      await pieLabel[i].remove()
       }
     }
     await project.remove()

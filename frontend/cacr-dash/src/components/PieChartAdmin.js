@@ -20,6 +20,7 @@ function PieChartAdmin() {
   const [idVal, setIdVal] = useState(null);
 
   useEffect(() => {
+   
     const getLabels = async () => {
       await axios
         .get(`http://localhost:5000/api/projects/${id}/PieChart`)
@@ -54,7 +55,6 @@ function PieChartAdmin() {
         config
       )
       .then((res) => {
-        console.log(res.data);
         setLabels([res.data, ...labels]);
       })
       .catch((err) => console.log(err));
@@ -65,8 +65,15 @@ function PieChartAdmin() {
   };
 
   const editHandler = async (pid) => {
+    const token = localStorage.getItem("authToken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
     await axios
-      .get(`http://localhost:5000/api/projects/${pid}/pieLabel`)
+      .get(`http://localhost:5000/api/projects/${pid}/pieLabel`,config)
       .then((res) => {
         setIdVal(pid);
         setCause(res.data.label);
@@ -85,7 +92,6 @@ function PieChartAdmin() {
     await axios
       .delete(`http://localhost:5000/api/projects/${pid}/pieLabel`, config)
       .then((res) => {
-        console.log(res);
         const labs = labels.filter((lab) => {
           return lab._id !== pid;
         });
@@ -95,11 +101,17 @@ function PieChartAdmin() {
   };
 
   const updateUser = async (pid) => {
+    const token = localStorage.getItem("authToken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
     let item = { cause, value };
     await axios
-      .put(`http://localhost:5000/api/projects/${pid}/pieLabel`, item)
+      .put(`http://localhost:5000/api/projects/${pid}/pieLabel`, item,config)
       .then((res) => {
-        console.log(res.data);
         const labs = labels.filter((lab) => {
           return lab._id !== res.data._id;
         });
@@ -111,9 +123,9 @@ function PieChartAdmin() {
 
   return (
     <div className="container">
-      <h4 class="animate__animated animate__pulse">Add Program Details</h4>
+      <h4 className="animate__animated animate__pulse">Add Program Details</h4>
       <div className="createGraphs">
-        <h4 class="animate__animated animate__pulse">Pie Chart</h4>
+        <h4 className="animate__animated animate__pulse">Pie Chart</h4>
         <form onSubmit={submitHandler}>
             <input
               type="text"
@@ -133,12 +145,12 @@ function PieChartAdmin() {
               value={data.val}
               required
             />
-          <div class="animate__animated animate__pulse">
+          <div className="animate__animated animate__pulse">
             <button className="btn btn-lg btn-danger">Add</button>
           </div>
         </form>
       </div>
-      <div class="animate__animated animate__zoomIn">
+      <div className="animate__animated animate__zoomIn">
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
@@ -176,7 +188,7 @@ function PieChartAdmin() {
                 />
               </td>
               <td>
-                <div class="animate__animated animate__pulse">
+                <div className="animate__animated animate__pulse">
                   <button
                     className="btn btn-lg btn-danger"
                     onClick={() => updateUser(idVal)}
@@ -218,7 +230,7 @@ function PieChartAdmin() {
           </tbody>
         </Table>
       </div>
-      <div class="animate__animated animate__pulse">
+      <div className="animate__animated animate__pulse">
         <Link to={`/admin/programs/${id}/Progress`}>
           <button className="btn btn-lg btn-danger">Proceed</button>
         </Link>

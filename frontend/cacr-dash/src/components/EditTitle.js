@@ -18,7 +18,6 @@ const EditTitle = () => {
           setIdVal(res.data._id);
           setTitle(res.data.title);
           setDescription(res.data.description);
-          console.log(res.data);
         })
         .catch((err) => console.log(err));
     };
@@ -41,7 +40,6 @@ const EditTitle = () => {
     await axios
       .put(`http://localhost:5000/api/projects/${pid}`, item,config)
       .then((res) => {
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -49,7 +47,7 @@ const EditTitle = () => {
   return (
     <div className="createProgram container">
       <form>
-        <div class="animate__animated animate__zoomIn">
+        <div className="animate__animated animate__zoomIn">
           <input
             type="text"
             className="form-control"
@@ -61,7 +59,7 @@ const EditTitle = () => {
             required
           />
         </div>
-        <div class="animate__animated animate__zoomIn">
+        <div className="animate__animated animate__zoomIn">
           <textarea
             className="form-control"
             placeholder="Enter program description"
@@ -72,10 +70,10 @@ const EditTitle = () => {
             required
           ></textarea>
         </div>
-        <div class="animate__animated animate__zoomIn">
+        <div className="animate__animated animate__zoomIn">
           <input type="file" className="custom-file-input" id="customFile" />
         </div>
-        <div class="animate__animated animate__pulse">
+        <div className="animate__animated animate__pulse">
           <button
             className="w-100 btn btn-lg btn-danger"
             onClick={() => updateProgram(idVal)}
@@ -84,7 +82,7 @@ const EditTitle = () => {
           </button>
         </div>
       </form>
-      <div class="animate__animated animate__pulse">
+      <div className="animate__animated animate__pulse">
         <Link to={`/admin/programs/${id}/graphs`}>
           <button className="btn btn-lg btn-danger">Proceed</button>
         </Link>

@@ -14,7 +14,7 @@ function Statuses() {
   }, []);
   return (
     <div className="container">
-      <h4 class="animate__animated animate__pulse">
+      <h4 className="animate__animated animate__pulse">
         Program Completiton Status
       </h4>
       <hr />

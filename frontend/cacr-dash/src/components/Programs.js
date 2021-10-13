@@ -33,10 +33,10 @@ function Programs() {
           );
         })}
       </Carousel>
-      <h4 class="animate__animated animate__pulse" align="center">
+      <h4 className="animate__animated animate__pulse" align="center">
         Our Programs
       </h4>
-      <div class=" pro container-fluid">
+      <div className=" pro container-fluid">
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {projects.map((proj) => {
             return (

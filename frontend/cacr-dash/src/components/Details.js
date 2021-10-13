@@ -23,12 +23,12 @@ function Details() {
   }, []);
   return (
     <div className="container">
-      <h4 class="animate__animated animate__pulse">{proj.title}</h4>
+      <h4 className="animate__animated animate__pulse">{proj.title}</h4>
 
       <div className="description">
-        <div class="animate__animated animate__zoomIn">{proj.description}</div>
+        <div className="animate__animated animate__zoomIn">{proj.description}</div>
       </div>
-      <div class="animate__animated animate__pulse">
+      <div className="animate__animated animate__pulse">
         <Link to={`/programs/status/${id}`}>
           <button className="btn btn-success" type="submit">
             View Completion Status

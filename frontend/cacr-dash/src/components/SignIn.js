@@ -18,7 +18,7 @@ function Signin({ Login, error, history }) {
     history.push("/admin/programs/");
   };
   return (
-    <div class="animate__animated animate__slideInUp">
+    <div className="animate__animated animate__slideInUp">
       <main className="form-signin">
         <form onSubmit={submitHandler}>
           <h1 className="h3 mb-3 fw-normal">Admin Log in</h1>
