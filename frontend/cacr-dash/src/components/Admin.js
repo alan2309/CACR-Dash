@@ -14,7 +14,7 @@ function Admin() {
   const [popup, setPopup] = useState(false);
   const [projId, setProjId] = useState("");
   const [uploading, setUploading] = useState(false);
-  /*const [image, setImage] = useState("");*/
+  const [imagee, setImage] = useState();
 
   useEffect(() => {
     const config = {
@@ -53,6 +53,12 @@ function Admin() {
       })
       .catch((err) => console.log(err));
   };
+  function uploadFileHandler(e){
+    alert('hh')
+    console.log(e)
+    setImage(e.target.files[0])
+
+  }
 
   /*const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
@@ -89,8 +95,10 @@ function Admin() {
     const programData = {
       title: program.title,
       description: program.description,
-      image: "images/img1.jpeg",
+      image: imagee,
     };
+    alert('p')
+    console.log(programData)
     await axios
       .post("http://localhost:5000/api/projects", programData, config)
       .then((res) => {
@@ -125,16 +133,10 @@ function Admin() {
           ></textarea>
         </div>
 
-            {/* image input  */}
-
-        {/* <div class="animate__animated animate__zoomIn">
-          <Form.File
-            id="image-file"
-            label="Choose File"
-            custom
-            onChange={uploadFileHandler}
-          ></Form.File>
-        </div> */}
+        
+                    <input type="file"
+                   id="image"
+                   accept="image/png, image/jpeg"  onChange={uploadFileHandler} required/>
         <div className="animate__animated animate__pulse">
           <button className="w-100 btn btn-lg btn-primary" type="submit">
             Create Program
