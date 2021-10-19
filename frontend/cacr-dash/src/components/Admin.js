@@ -58,7 +58,7 @@ function Admin() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    <Redirect to="/admin/programs/graphs" />;
+    if(imagee === undefined) return;
     let form_data = new FormData();
     form_data.append('image', imagee, imagee.name);
     form_data.append('title', program.title);

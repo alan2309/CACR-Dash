@@ -30,3 +30,6 @@
       font-weight: 800;
       color: #4c78ac;
   }
+  .image{
+      max-height: 200px;
+  }

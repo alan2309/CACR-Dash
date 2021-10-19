@@ -13,7 +13,7 @@ const Program = (props) => {
       <div className="col">
         <div className="card h-100 ">
           <Link to={`/programs/details/${id}`}>
-            <img src={img} className="card-img-top" alt={title} />
+            <img src={img} className="card-img-top image" alt={title} />
           </Link>
           <div className="card-body">
             <h4 className="card-title">{title}</h4>

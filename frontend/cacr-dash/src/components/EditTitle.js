@@ -26,6 +26,7 @@ const EditTitle = () => {
   }, []);
 
   const updateProgram = async (pid) => {
+    if (imagee === undefined) return;
     let form_data = new FormData();
     form_data.append('image', imagee, imagee.name);
     form_data.append('title', title);
@@ -40,6 +41,7 @@ const EditTitle = () => {
     await axios
       .put(`http://localhost:5000/api/projects/${pid}`, form_data,config)
       .then((res) => {
+        console.log(form_data)
       })
       .catch((err) => console.log(err));
   };
